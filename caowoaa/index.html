@@ -1,0 +1,1463 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>操我啊啊啊啊91视频-成人内容社区观察与索引</title>
+<meta name="description" content="操我啊啊啊啊91视频是一个成人视频内容索引与讨论社区，整理作品编号、画质版本、作者更新与观看提示，帮助成年观众按类别、时长和发布时间筛选条目，并记录常见争议与版本差异。">
+<meta name="keywords" content="操我啊啊啊啊91视频">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1220'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23e0557a' stroke-width='4'/%3E%3Cpath d='M26 24l16 8-16 8z' fill='%23f4b942'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#141018;
+  --bg-soft:#1c1622;
+  --panel:#241c2c;
+  --panel-2:#2c2236;
+  --line:#3a2e46;
+  --text:#efe8f2;
+  --muted:#b4a6c0;
+  --dim:#8e7f9c;
+  --brand:#e0557a;
+  --brand-soft:#f28aa4;
+  --gold:#f4b942;
+  --teal:#4fc3b0;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --shadow:0 6px 24px rgba(0,0,0,.35);
+  --space-1:6px;
+  --space-2:12px;
+  --space-3:18px;
+  --space-4:26px;
+  --space-5:38px;
+  --space-6:56px;
+  --font-sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  --font-mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  --header-h:60px;
+  --notice-h:38px;
+  --anchor-off:calc(var(--header-h) + var(--notice-h) + 12px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-sans);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:var(--brand-soft);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+section[id],div[id]{scroll-margin-top:var(--anchor-off)}
+
+/* ===== 吸顶组 ===== */
+.sticky-wrap{
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.notice-bar{
+  height:var(--notice-h);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:0 var(--space-3);
+  background:linear-gradient(90deg,#3a1424,#5a1c34 55%,#3a1424);
+  border-bottom:1px solid #5e2440;
+  font-size:13px;
+  color:#ffd9e3;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.notice-bar .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);
+  flex:none;
+  box-shadow:0 0 0 0 rgba(244,185,66,.6);
+  animation:pulse 2.4s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(244,185,66,.55)}
+  70%{box-shadow:0 0 0 7px rgba(244,185,66,0)}
+  100%{box-shadow:0 0 0 0 rgba(244,185,66,0)}
+}
+.notice-bar b{color:#fff;font-weight:600}
+.notice-bar .sep{color:#8d4a62}
+
+.site-header{
+  height:var(--header-h);
+  background:rgba(20,16,24,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:var(--space-3);
+  padding:0 clamp(12px,4vw,40px);
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex:none;
+}
+.brand-mark{
+  width:32px;height:32px;
+  flex:none;
+}
+.brand-text{
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:var(--text);
+  white-space:nowrap;
+}
+.main-nav{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  flex:1 1 auto;
+}
+.main-nav::-webkit-scrollbar{display:none}
+.main-nav a{
+  color:var(--muted);
+  font-size:14px;
+  padding:6px 10px;
+  border-radius:var(--radius-s);
+  white-space:nowrap;
+}
+.main-nav a:hover{color:var(--text);background:var(--panel);text-decoration:none}
+.header-actions{display:flex;align-items:center;gap:8px;flex:none}
+.search-box{
+  display:flex;
+  align-items:center;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:calc(var(--radius-m) + 8px);
+  padding:4px 6px 4px 12px;
+  gap:6px;
+}
+.search-box input{
+  background:none;border:none;outline:none;
+  color:var(--text);
+  font-size:13px;
+  width:150px;
+  font-family:inherit;
+}
+.search-box input::placeholder{color:var(--dim)}
+.search-box button{
+  background:var(--brand);
+  border:none;
+  color:#fff;
+  font-size:13px;
+  padding:4px 10px;
+  border-radius:20px;
+  cursor:pointer;
+  font-family:inherit;
+}
+.search-box button:hover{background:#c9416a}
+.menu-toggle{
+  display:none;
+  background:var(--panel);
+  border:1px solid var(--line);
+  color:var(--text);
+  width:38px;height:34px;
+  border-radius:var(--radius-s);
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+}
+.menu-toggle svg{width:18px;height:18px}
+.mobile-nav{
+  display:none;
+  background:var(--bg-soft);
+  border-bottom:1px solid var(--line);
+  padding:10px clamp(12px,4vw,40px) 16px;
+}
+.mobile-nav.open{display:block}
+.mobile-nav a{
+  display:block;
+  padding:9px 4px;
+  color:var(--muted);
+  font-size:15px;
+  border-bottom:1px solid var(--line);
+}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a:hover{color:var(--brand-soft);text-decoration:none}
+
+.search-feedback{
+  display:none;
+  padding:10px clamp(12px,4vw,40px);
+  background:#2b1b24;
+  border-bottom:1px solid #5e2440;
+  font-size:13px;
+  color:#ffd9e3;
+}
+.search-feedback.show{display:block}
+
+/* ===== 首屏 ===== */
+.hero{
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(ellipse at 78% 18%,rgba(224,85,122,.20),transparent 58%),
+    radial-gradient(ellipse at 10% 90%,rgba(79,195,176,.10),transparent 55%),
+    var(--bg-soft);
+}
+.hero-inner{
+  position:relative;
+  z-index:2;
+  max-width:1160px;
+  margin:0 auto;
+  padding:clamp(34px,6vw,68px) clamp(16px,4vw,40px) clamp(30px,5vw,56px);
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:var(--space-5);
+  align-items:center;
+}
+.hero-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  letter-spacing:.14em;
+  color:var(--gold);
+  border:1px solid rgba(244,185,66,.35);
+  border-radius:20px;
+  padding:3px 12px;
+  margin-bottom:var(--space-3);
+}
+.hero h1{
+  font-size:clamp(26px,4.4vw,44px);
+  line-height:1.25;
+  font-weight:800;
+  letter-spacing:.01em;
+  margin-bottom:var(--space-3);
+  word-break:break-word;
+}
+.hero h1 .hl{
+  color:var(--brand-soft);
+  background:linear-gradient(transparent 62%,rgba(224,85,122,.28) 62%);
+}
+.hero-desc{
+  color:var(--muted);
+  font-size:15px;
+  max-width:52ch;
+  margin-bottom:var(--space-4);
+}
+.hero-desc strong{color:var(--text);font-weight:600}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:var(--space-4)}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 20px;
+  border-radius:24px;
+  font-size:14px;
+  font-weight:600;
+  border:1px solid transparent;
+  transition:transform .18s ease,background .18s ease;
+  font-family:inherit;
+}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{background:#c9416a}
+.btn-ghost{border-color:var(--line);color:var(--text);background:rgba(255,255,255,.02)}
+.btn-ghost:hover{background:var(--panel)}
+.hero-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-4);
+  padding-top:var(--space-3);
+  border-top:1px solid var(--line);
+}
+.hero-stats div{font-size:12px;color:var(--dim)}
+.hero-stats b{
+  display:block;
+  font-size:22px;
+  color:var(--text);
+  font-weight:700;
+  font-family:var(--font-mono);
+  line-height:1.3;
+}
+.hero-visual{
+  position:relative;
+  aspect-ratio:1/1;
+  max-width:340px;
+  width:100%;
+  justify-self:center;
+}
+.hero-visual svg{width:100%;height:100%}
+.orbit{transform-origin:center;animation:spin 26s linear infinite}
+.orbit-r{transform-origin:center;animation:spin 34s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== 布局 ===== */
+.layout{
+  max-width:1160px;
+  margin:0 auto;
+  padding:var(--space-5) clamp(16px,4vw,40px) var(--space-6);
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 292px;
+  gap:var(--space-5);
+  align-items:start;
+}
+main{min-width:0}
+.content-col{display:flex;flex-direction:column;gap:var(--space-5)}
+
+.sidebar{
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-3);
+  position:sticky;
+  top:calc(var(--anchor-off) + 4px);
+}
+.side-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  padding:var(--space-3);
+}
+.side-card h2,.side-card h3{
+  font-size:14px;
+  margin-bottom:var(--space-2);
+  color:var(--gold);
+  letter-spacing:.06em;
+}
+.side-nav{display:flex;flex-direction:column;gap:2px}
+.side-nav a{
+  font-size:13.5px;
+  color:var(--muted);
+  padding:6px 10px;
+  border-radius:var(--radius-s);
+  border-left:2px solid transparent;
+}
+.side-nav a:hover{background:var(--panel-2);color:var(--text);text-decoration:none}
+.side-nav a.active{
+  color:var(--brand-soft);
+  border-left-color:var(--brand);
+  background:rgba(224,85,122,.10);
+}
+.side-note{font-size:12.5px;color:var(--dim);line-height:1.7}
+.side-note b{color:var(--muted)}
+
+/* ===== 通用板块 ===== */
+.block{background:transparent}
+.block-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:var(--space-3);
+  padding-bottom:10px;
+  border-bottom:1px solid var(--line);
+}
+.block-head h2{
+  font-size:clamp(18px,2.4vw,22px);
+  font-weight:700;
+  letter-spacing:.01em;
+}
+.block-head .sub{font-size:12.5px;color:var(--dim)}
+.block-lead{font-size:14.5px;color:var(--muted);margin-bottom:var(--space-3);max-width:72ch}
+.block-lead b{color:var(--text)}
+
+/* 概览：对照面板 */
+.overview-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:var(--space-2);
+}
+.ov-cell{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  padding:var(--space-3);
+}
+.ov-cell h3{font-size:14px;margin-bottom:6px;color:var(--brand-soft)}
+.ov-cell p{font-size:13.5px;color:var(--muted)}
+.ov-cell .num{font-family:var(--font-mono);color:var(--gold);font-size:13px}
+
+/* 精选卡片网格 */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:var(--space-3);
+}
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:transform .2s ease,border-color .2s ease;
+}
+.card:hover{transform:translateY(-3px);border-color:#59466a}
+.card-media{
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:var(--panel-2);
+}
+.card-media img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:var(--space-2) var(--space-3) var(--space-3);display:flex;flex-direction:column;gap:6px;flex:1}
+.card-meta{font-size:11.5px;color:var(--dim);display:flex;flex-wrap:wrap;gap:8px;font-family:var(--font-mono)}
+.card h3{font-size:15px;line-height:1.5}
+.card p{font-size:13px;color:var(--muted);flex:1}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{
+  font-size:11.5px;
+  color:var(--muted);
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:2px 9px;
+  white-space:nowrap;
+}
+.tag:hover{color:var(--brand-soft);border-color:#6a4a5e;text-decoration:none}
+
+/* 紧凑列表 */
+.list-compact{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.list-compact li{
+  list-style:none;
+  display:grid;
+  grid-template-columns:76px minmax(0,1fr) auto;
+  gap:var(--space-2);
+  align-items:baseline;
+  padding:11px 2px;
+  border-bottom:1px solid var(--line);
+  font-size:14px;
+}
+.list-compact .date{font-family:var(--font-mono);font-size:12px;color:var(--dim)}
+.list-compact .what{color:var(--text)}
+.list-compact .what small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.list-compact .ver{font-size:11.5px;color:var(--teal);font-family:var(--font-mono);white-space:nowrap}
+
+/* 分类入口：标签索引 + 网格 */
+.cat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:var(--space-2);
+}
+.cat-item{
+  display:block;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  padding:12px 14px;
+  transition:background .18s ease;
+}
+.cat-item:hover{background:var(--panel-2);text-decoration:none}
+.cat-item b{display:block;font-size:14.5px;color:var(--text);margin-bottom:2px}
+.cat-item span{font-size:12px;color:var(--dim)}
+
+/* 深度解析：分栏正文 */
+.depth{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-l);
+  padding:clamp(18px,3.4vw,32px);
+}
+.depth h2{font-size:clamp(20px,2.6vw,24px);margin-bottom:var(--space-2)}
+.depth .kicker{font-size:12px;color:var(--gold);letter-spacing:.12em;margin-bottom:8px}
+.depth h3{
+  font-size:16.5px;
+  margin:var(--space-4) 0 var(--space-2);
+  padding-left:12px;
+  border-left:3px solid var(--brand);
+  line-height:1.5;
+}
+.depth p{font-size:15px;color:#ddd2e3;margin-bottom:10px}
+.depth p b{color:#fff}
+.depth .claim{
+  background:rgba(244,185,66,.08);
+  border:1px solid rgba(244,185,66,.28);
+  border-radius:var(--radius-m);
+  padding:14px 16px;
+  margin:var(--space-3) 0;
+  font-size:14.5px;
+}
+.depth .claim strong{color:var(--gold)}
+.depth ul{margin:0 0 12px 20px}
+.depth li{font-size:14.5px;color:#ddd2e3;margin-bottom:5px}
+.split-cols{columns:2;column-gap:var(--space-4)}
+.split-cols p{break-inside:avoid}
+.table-check{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13.5px;
+  margin:var(--space-2) 0 var(--space-3);
+}
+.table-check th,.table-check td{
+  border:1px solid var(--line);
+  padding:8px 10px;
+  text-align:left;
+  vertical-align:top;
+}
+.table-check th{background:var(--panel-2);color:var(--gold);font-weight:600;font-size:12.5px;letter-spacing:.04em}
+.table-check td{color:var(--muted)}
+.table-check td b{color:var(--text)}
+
+/* 体验指南：编号步骤 */
+.steps{list-style:none;counter-reset:step;display:flex;flex-direction:column;gap:var(--space-2)}
+.steps li{
+  counter-increment:step;
+  position:relative;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  padding:var(--space-3) var(--space-3) var(--space-3) 62px;
+}
+.steps li::before{
+  content:counter(step,decimal-leading-zero);
+  position:absolute;
+  left:16px;top:16px;
+  font-family:var(--font-mono);
+  font-size:16px;
+  color:var(--brand-soft);
+  font-weight:700;
+}
+.steps h3{font-size:15px;margin-bottom:4px}
+.steps p{font-size:13.5px;color:var(--muted)}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:8px}
+details.faq{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  overflow:hidden;
+}
+details.faq summary{
+  cursor:pointer;
+  padding:13px 16px;
+  font-size:14.5px;
+  font-weight:600;
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{
+  content:"+";
+  color:var(--brand-soft);
+  font-size:18px;
+  font-family:var(--font-mono);
+  flex:none;
+}
+details.faq[open] summary::after{content:"−"}
+details.faq summary:hover{background:var(--panel-2)}
+details.faq .faq-a{
+  padding:0 16px 14px;
+  font-size:13.5px;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  padding-top:12px;
+}
+details.faq .faq-a b{color:var(--text)}
+
+/* 评论 */
+.comments{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--space-2)}
+.comment{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  padding:var(--space-3);
+  font-size:13.5px;
+  color:var(--muted);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.comment .who{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dim)}
+.avatar{
+  width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,#6a3a52,#2c2236);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:#ffd9e3;font-weight:700;
+  flex:none;
+}
+.comment .ctext{color:#e4dbea}
+.comment .ctext b{color:var(--brand-soft)}
+
+/* 相关资讯：时间线 */
+.timeline{position:relative;padding-left:22px}
+.timeline::before{
+  content:"";
+  position:absolute;left:5px;top:6px;bottom:6px;
+  width:2px;background:var(--line);
+}
+.timeline li{
+  list-style:none;
+  position:relative;
+  padding:0 0 var(--space-3) 6px;
+}
+.timeline li::before{
+  content:"";
+  position:absolute;left:-21px;top:7px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--brand);
+  box-shadow:0 0 0 3px var(--bg);
+}
+.timeline time{font-family:var(--font-mono);font-size:12px;color:var(--gold)}
+.timeline b{display:block;font-size:14px;margin:2px 0}
+.timeline p{font-size:13px;color:var(--muted)}
+
+/* 榜单 */
+.rank-list{display:flex;flex-direction:column;gap:6px;counter-reset:rank}
+.rank-list li{
+  list-style:none;
+  counter-increment:rank;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius-m);
+  padding:10px 14px;
+  font-size:14px;
+}
+.rank-list li::before{
+  content:counter(rank);
+  font-family:var(--font-mono);
+  color:var(--brand-soft);
+  font-size:15px;
+  width:22px;
+  flex:none;
+}
+.rank-list .rname{flex:1;color:var(--text)}
+.rank-list .rsub{font-size:11.5px;color:var(--dim);font-family:var(--font-mono)}
+
+/* 推荐标签 */
+.rec-tags{display:flex;flex-wrap:wrap;gap:8px}
+.rec-tags a{
+  font-size:13px;
+  color:var(--text);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:6px 14px;
+  transition:border-color .18s ease,color .18s ease;
+}
+.rec-tags a:hover{border-color:var(--brand);color:var(--brand-soft);text-decoration:none}
+.rec-tags a small{color:var(--dim);font-family:var(--font-mono);margin-left:4px}
+
+/* 页尾 */
+.site-footer{
+  border-top:1px solid var(--line);
+  background:var(--bg-soft);
+  padding:var(--space-5) clamp(16px,4vw,40px) var(--space-4);
+  margin-top:var(--space-5);
+}
+.footer-inner{
+  max-width:1160px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,1fr));
+  gap:var(--space-4);
+}
+.footer-brand .brand{margin-bottom:10px}
+.footer-brand p{font-size:13px;color:var(--muted);max-width:34ch}
+.footer-col h3{font-size:13px;color:var(--gold);margin-bottom:10px;letter-spacing:.06em}
+.footer-col a{display:block;font-size:13px;color:var(--muted);padding:3px 0}
+.footer-col a:hover{color:var(--brand-soft)}
+.footer-bottom{
+  max-width:1160px;
+  margin:var(--space-4) auto 0;
+  padding-top:var(--space-3);
+  border-top:1px solid var(--line);
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 20px;
+  justify-content:space-between;
+  font-size:12px;
+  color:var(--dim);
+}
+.footer-bottom b{color:var(--muted)}
+
+/* 回顶 */
+.back-top{
+  position:fixed;
+  right:18px;bottom:22px;
+  width:44px;height:44px;
+  border-radius:50%;
+  background:var(--brand);
+  color:#fff;
+  border:none;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(8px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s;
+  box-shadow:var(--shadow);
+  z-index:60;
+}
+.back-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+.back-top:hover{background:#c9416a}
+
+/* 高亮搜索结果命中 */
+.hit{outline:2px dashed var(--gold);outline-offset:2px;border-radius:4px}
+
+@media (max-width:1000px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:var(--space-4)}
+  .sidebar{position:static;flex-direction:row;flex-wrap:wrap}
+  .side-card{flex:1 1 260px}
+  .footer-inner{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-inner{grid-template-columns:minmax(0,1fr)}
+  .hero-visual{display:none}
+  .main-nav{display:none}
+  .menu-toggle{display:inline-flex}
+}
+@media (max-width:640px){
+  .search-box input{width:104px}
+  .brand-text{font-size:14px}
+  .split-cols{columns:1}
+  .footer-inner{grid-template-columns:minmax(0,1fr)}
+  .list-compact li{grid-template-columns:64px minmax(0,1fr)}
+  .list-compact .ver{grid-column:2;justify-self:start}
+  .hero-stats{gap:var(--space-3)}
+  .hero-stats b{font-size:19px}
+}
+@media (max-width:400px){
+  .search-box{display:none}
+  .hero-inner{padding-top:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-wrap">
+  <div class="notice-bar" role="status">
+    <span class="dot" aria-hidden="true"></span>
+    <span><b>操我啊啊啊啊91视频</b> 索引库 11 月 7 日更新：新增 14 条带版本号的条目，3 条旧序号重排</span>
+    <span class="sep" aria-hidden="true">|</span>
+    <span>画质对照表补到 4K/1080p/720p 三档</span>
+  </div>
+
+  <header class="site-header">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="操我啊啊啊啊91视频图形标志">
+        <rect width="64" height="64" rx="14" fill="#1c1220"/>
+        <circle cx="32" cy="32" r="18" fill="none" stroke="#e0557a" stroke-width="4"/>
+        <path d="M26 24l16 8-16 8z" fill="#f4b942"/>
+      </svg>
+      <span class="brand-text">操我啊啊啊啊91视频</span>
+    </div>
+    <nav class="main-nav" aria-label="主题导航">
+      <a href="/#overview">领域概览</a>
+      <a href="/#picks">精选条目</a>
+      <a href="/#latest">更新记录</a>
+      <a href="/#cats">分类索引</a>
+      <a href="/#depth">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问答</a>
+      <a href="/#comments">观众评论</a>
+    </nav>
+    <div class="header-actions">
+      <div class="search-box">
+        <label for="site-search" class="sr-only" style="position:absolute;left:-9999px">站内搜索</label>
+        <input id="site-search" type="search" placeholder="搜索条目编号、作者" autocomplete="off">
+        <button type="button" id="search-btn">查找</button>
+      </div>
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="展开导航菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="/#overview">领域概览</a>
+    <a href="/#picks">精选条目</a>
+    <a href="/#latest">更新记录</a>
+    <a href="/#cats">分类索引</a>
+    <a href="/#depth">深度解析</a>
+    <a href="/#guide">体验指南</a>
+    <a href="/#faq">常见问答</a>
+    <a href="/#comments">观众评论</a>
+    <a href="/#news">相关资讯</a>
+    <a href="/#rank">本周榜单</a>
+  </div>
+  <div class="search-feedback" id="search-feedback" role="status" aria-live="polite"></div>
+</div>
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-tag">内容索引 · 版本记录 · 成年向</span>
+      <h1 id="hero-title">操我啊啊啊啊91视频<span class="hl">：条目、版本与观看提示的整理站</span></h1>
+      <p class="hero-desc">按编号归档、按作者追踪、按画质分档。<strong>收录 1,284 条编号</strong>，其中 316 条有 2 个以上版本；每一条都标注上线日期、时长与镜头类型，方便成年观众在 30 秒内判断是否值得点开。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/#latest">看 11 月 7 日更新</a>
+        <a class="btn btn-ghost" href="/#guide">读体验指南</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>1,284</b>归档条目</div>
+        <div><b>316</b>多版本条目</div>
+        <div><b>42</b>活跃作者</div>
+        <div><b>11-07</b>最近整理</div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 340 340" role="presentation">
+        <defs>
+          <radialGradient id="g1" cx="50%" cy="42%" r="60%">
+            <stop offset="0%" stop-color="#e0557a" stop-opacity=".55"/>
+            <stop offset="100%" stop-color="#141018" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f4b942"/>
+            <stop offset="100%" stop-color="#e0557a"/>
+          </linearGradient>
+        </defs>
+        <circle cx="170" cy="170" r="150" fill="url(#g1)"/>
+        <g class="orbit">
+          <circle cx="170" cy="170" r="132" fill="none" stroke="#3a2e46" stroke-width="1"/>
+          <circle cx="170" cy="38" r="6" fill="#e0557a"/>
+          <circle cx="170" cy="302" r="4" fill="#f4b942"/>
+        </g>
+        <g class="orbit-r">
+          <circle cx="170" cy="170" r="104" fill="none" stroke="#3a2e46" stroke-width="1" stroke-dasharray="4 7"/>
+          <circle cx="247" cy="170" r="4" fill="#4fc3b0"/>
+        </g>
+        <circle cx="170" cy="170" r="58" fill="none" stroke="url(#g2)" stroke-width="3"/>
+        <path d="M152 144l44 26-44 26z" fill="#efe8f2"/>
+        <rect x="66" y="222" width="52" height="8" rx="4" fill="#3a2e46"/>
+        <rect x="66" y="238" width="92" height="8" rx="4" fill="#2c2236"/>
+        <rect x="66" y="254" width="70" height="8" rx="4" fill="#2c2236"/>
+        <rect x="222" y="66" width="52" height="8" rx="4" fill="#3a2e46"/>
+        <rect x="196" y="82" width="78" height="8" rx="4" fill="#2c2236"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="layout">
+  <main>
+    <div class="content-col">
+
+      <!-- 领域概览 -->
+      <section class="block" id="overview" aria-labelledby="overview-h">
+        <div class="block-head">
+          <h2 id="overview-h">领域概览：编号、作者与画质三条线</h2>
+          <span class="sub">最后核对 2026-11-06</span>
+        </div>
+        <p class="block-lead">成人视频条目在流传里最常丢失的不是画面，而是<b>编号与版本对应关系</b>。同一条目经二次压制后，时长可能缩水 40 秒，片头水印被裁掉，编号后缀从 <span style="font-family:var(--font-mono);color:var(--teal)">a</span> 变成 <span style="font-family:var(--font-mono);color:var(--teal)">b</span>。索引要做的就是把这三条线重新拧上。</p>
+        <div class="overview-grid">
+          <div class="ov-cell">
+            <h3>编号体系</h3>
+            <p>主流用「日期+序号+版本字母」，如 <span class="num">1102-07a</span>。序号不连续是常态，缺口多来自作者下架或平台审核。</p>
+          </div>
+          <div class="ov-cell">
+            <h3>作者追踪</h3>
+            <p>42 个活跃作者里，当月有更新的 29 个。发布节奏多为每周 1—2 条，单条时长集中在 8 到 22 分钟。</p>
+          </div>
+          <div class="ov-cell">
+            <h3>画质分档</h3>
+            <p>4K 原件占比约 11%，1080p 是主流，720p 多为二次搬运。码率低于 2.5 Mbps 的条目会单独标黄。</p>
+          </div>
+          <div class="ov-cell">
+            <h3>镜头类型</h3>
+            <p>固定机位、手持跟拍、多机位剪辑三类。多机位版本通常比固定机位晚 1—3 天上线，剪辑差异是争议主因。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 精选内容推荐 -->
+      <section class="block" id="picks" aria-labelledby="picks-h">
+        <div class="block-head">
+          <h2 id="picks-h">精选内容推荐</h2>
+          <span class="sub">编辑按版本完整度挑选</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/91index-a1/560/315" width="560" height="315" loading="lazy" alt="编号1102-07a条目封面，深色棚拍场景">
+            </div>
+            <div class="card-body">
+              <div class="card-meta"><span>1102-07a</span><span>4K</span><span>18:42</span></div>
+              <h3>1102-07a 原始机位版</h3>
+              <p>作者「灰调」11 月 2 日首发，码率 12.4 Mbps，片头保留完整场记板。二次搬运版普遍删掉前 9 秒。</p>
+              <div class="tag-row"><span class="tag">固定机位</span><span class="tag">棚拍</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/91index-b2/560/315" width="560" height="315" loading="lazy" alt="编号1028-15c条目封面，室内手持跟拍画面">
+            </div>
+            <div class="card-body">
+              <div class="card-meta"><span>1028-15c</span><span>1080p</span><span>22:10</span></div>
+              <h3>1028-15c 多机位剪辑版</h3>
+              <p>比 a 版晚 3 天上线，新增 2 个侧机位。争议点在 14 分 20 秒处的跳切，b 版与 c 版帧序不同。</p>
+              <div class="tag-row"><span class="tag">多机位</span><span class="tag">手持</span><span class="tag">版本争议</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/91index-c3/560/315" width="560" height="315" loading="lazy" alt="编号1031-04条目封面，暖色补光的室内场景">
+            </div>
+            <div class="card-body">
+              <div class="card-meta"><span>1031-04</span><span>1080p</span><span>11:05</span></div>
+              <h3>1031-04 短版对照</h3>
+              <p>同一素材剪出 11 分钟短版，去掉片尾花絮。作者在 11 月 3 日评论里说明这是平台时长限制所致。</p>
+              <div class="tag-row"><span class="tag">短版</span><span class="tag">剪辑说明</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/91index-d4/560/315" width="560" height="315" loading="lazy" alt="编号1104-09条目封面，暗色调的近景构图">
+            </div>
+            <div class="card-body">
+              <div class="card-meta"><span>1104-09</span><span>4K</span><span>16:33</span></div>
+              <h3>1104-09 双版本对照</h3>
+              <p>4K 原件与 1080p 压缩版同日上线。压缩版在暗部噪点明显，但文件只有原件的三分之一。</p>
+              <div class="tag-row"><span class="tag">双版本</span><span class="tag">暗部噪点</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 最新更新 -->
+      <section class="block" id="latest" aria-labelledby="latest-h">
+        <div class="block-head">
+          <h2 id="latest-h">最新更新记录</h2>
+          <span class="sub">11 月 1 日 — 11 月 7 日</span>
+        </div>
+        <ul class="list-compact">
+          <li>
+            <span class="date">11-07</span>
+            <span class="what">新增 1107-02、1107-03 两条编号<small>作者「夜航」连续发两条，均为 1080p，时长 13:20 与 9:48。</small></span>
+            <span class="ver">新增</span>
+          </li>
+          <li>
+            <span class="date">11-06</span>
+            <span class="what">1102-07a 补档修正<small>原链接失效，换用备份源，文件哈希与首发一致。</small></span>
+            <span class="ver">修正</span>
+          </li>
+          <li>
+            <span class="date">11-05</span>
+            <span class="what">1028-15b 下架标记<small>作者主页已移除该版，c 版仍在。保留条目页供版本对照。</small></span>
+            <span class="ver">下架</span>
+          </li>
+          <li>
+            <span class="date">11-04</span>
+            <span class="what">1104-09 双版本入库<small>4K 与 1080p 同日上线，暗部对比截图已附在条目页。</small></span>
+            <span class="ver">新增</span>
+          </li>
+          <li>
+            <span class="date">11-03</span>
+            <span class="what">1031-04 短版说明补充<small>作者评论原文：「平台限制 12 分钟，花絮另放。」</small></span>
+            <span class="ver">补充</span>
+          </li>
+          <li>
+            <span class="date">11-02</span>
+            <span class="what">1102-07 系列共 3 条编号<small>07a、07b、07c 依次上线，间隔 6 小时与 2 天。</small></span>
+            <span class="ver">新增</span>
+          </li>
+          <li>
+            <span class="date">11-01</span>
+            <span class="what">画质对照表扩展到 720p 档<small>新增码率区间 1.5—2.5 Mbps 的标黄规则。</small></span>
+            <span class="ver">规则</span>
+          </li>
+          <li>
+            <span class="date">10-30</span>
+            <span class="what">作者「灰调」主页重组<small>旧编号统一加日期前缀，历史 47 条中 12 条链接变更。</small></span>
+            <span class="ver">结构</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 分类入口 -->
+      <section class="block" id="cats" aria-labelledby="cats-h">
+        <div class="block-head">
+          <h2 id="cats-h">分类索引：按场景与拍摄方式找</h2>
+          <span class="sub">点开即见该类条目数</span>
+        </div>
+        <div class="cat-grid">
+          <a class="cat-item" href="/#picks"><b>棚拍固定机位</b><span>312 条 · 画质稳定</span></a>
+          <a class="cat-item" href="/#picks"><b>手持跟拍</b><span>186 条 · 晃动明显</span></a>
+          <a class="cat-item" href="/#picks"><b>多机位剪辑</b><span>97 条 · 版本差异大</span></a>
+          <a class="cat-item" href="/#latest"><b>十分钟以内短版</b><span>241 条 · 通勤可看</span></a>
+          <a class="cat-item" href="/#latest"><b>二十分钟以上长版</b><span>88 条 · 含片尾花絮</span></a>
+          <a class="cat-item" href="/#depth"><b>双版本对照</b><span>63 组 · 带截图</span></a>
+          <a class="cat-item" href="/#depth"><b>下架留档</b><span>35 条 · 仅存元数据</span></a>
+          <a class="cat-item" href="/#news"><b>作者公告解读</b><span>每周 2—3 篇</span></a>
+          <a class="cat-item" href="/#rank"><b>本周热度榜</b><span>按点击与收藏比</span></a>
+          <a class="cat-item" href="/#guide"><b>首次观看指南</b><span>含设备与网络建议</span></a>
+        </div>
+      </section>
+
+      <!-- 深度解析 -->
+      <section class="block depth" id="depth" aria-labelledby="depth-h">
+        <div class="kicker">深度解析 · 可核对、可反驳</div>
+        <h2 id="depth-h">版本后缀不是随机字母：一套能自查的判断方法</h2>
+        <p>先给判断：<b>同一编号的 a/b/c 后缀多数按「上线先后」排，而不是按「画质高低」排。</b>这条判断可以反驳——只要找到一组后上线的更好画质版本，它就失效。下面列出的证据来自 10 月 30 日到 11 月 6 日的条目摘录。</p>
+
+        <h3>1. 时间线证据：三次「先a后c」的排列</h3>
+        <p>1102-07 系列是最好的样本。07a 于 11 月 2 日 09:12 首发，4K、18:42；07b 于当日 15:40 上线，1080p、18:05；07c 于 11 月 4 日 20:18 上线，1080p、18:42 但新增侧机位。若后缀按画质排，07c 应排在 07a 之前，实际没有。作者「灰调」在 11 月 3 日的评论里写得更直白：「a 是原片，b 是平台压过的，c 是我补剪的。」</p>
+        <p>接着看 1028-15。15a 与 15c 都是 1080p，15b 反而是 720p，上线顺序为 a→b→c。压缩版插在中间，说明字母承担的是「发布次序」这一功能，画质只是附带属性。</p>
+
+        <h3>2. 可核对结构：把说法拆成三列</h3>
+        <p>遇到版本争议，用下表把「谁说的、能查到什么、还缺什么」分开写。三列表格的作用是防止把转述当事实。</p>
+        <table class="table-check">
+          <thead>
+            <tr><th>说法</th><th>可核对项</th><th>缺口</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>07c 新增侧机位</td><td>条目页帧序对比，14:20 起角度不同</td><td>作者未说明侧机位拍摄日期</td></tr>
+            <tr><td>15b 已下架</td><td>作者主页 11-05 起不再列出 15b</td><td>下架原因无公开说明，属推测</td></tr>
+            <tr><td>短版因平台限时</td><td>11-03 评论原文提到 12 分钟限制</td><td>限制是否全平台生效未验证</td></tr>
+            <tr><td>4K 原件码率 12.4 Mbps</td><td>文件元数据读数，11-06 复核</td><td>无第二人独立复核</td></tr>
+          </tbody>
+        </table>
+
+        <h3>3. 规则前后变化：10 月 30 日的编号前缀</h3>
+        <p>作者「灰调」在 10 月 30 日重组主页，把旧条目统一加日期前缀。重组前 47 条里有 31 条只写序号，重组后全部变成「日期-序号」。这带来一个副作用：旧链接有 12 条失效，重新指向新编号。观众如果还在用旧序号搜索，会得到空结果——这不是条目消失，是命名规则换了。判断一条内容是否「还在」，应该查作者主页而非旧收藏夹。</p>
+
+        <div class="claim">
+          <strong>可直接引用的判断：</strong>版本后缀的字母顺序与上线时间同向变化的样本有 9 组，反向的 1 组；在没有作者说明的情况下，把字母当「时间戳」读，比当「画质等级」读命中率高得多。这个结论不覆盖「作者手动重排」的情况，遇到重排时以作者公告为准。
+        </div>
+
+        <h3>4. 一条容易被忽略的对照：时长与码率不同步</h3>
+        <p>1104-09 的 4K 原件 16:33、码率 11.8 Mbps；1080p 压缩版同样 16:33，码率 3.2 Mbps。时长一致、体积差三倍，说明压缩是重编码而非裁剪。反过来，1028-15b 的 720p 版本只有 17:21，比 a 版短 4 分多钟，这才属于裁剪。把「变短」和「变小」分开，能少踩很多坑。</p>
+
+        <h3>5. 什么时候这套方法会失灵</h3>
+        <p>作者批量重排、平台强制改后缀、多人共用同一编号时，时间线会被打乱。10 月 30 日那次重组就是例子。遇到这类情况，先看作者主页的更新公告，再看条目页的收录时间，两者冲突时以公告为准。公告也没有的话，就只能标「待核」，不要硬下结论。</p>
+      </section>
+
+      <!-- 体验指南 -->
+      <section class="block" id="guide" aria-labelledby="guide-h">
+        <div class="block-head">
+          <h2 id="guide-h">体验指南：从搜索到播放的五步</h2>
+          <span class="sub">面向成年观众</span>
+        </div>
+        <ol class="steps">
+          <li>
+            <h3>先确认编号，不要只记标题</h3>
+            <p>标题在不同搬运里会被改写，编号相对稳定。拿到编号后到条目页核对时长与上线日期，两项都对上再继续。</p>
+          </li>
+          <li>
+            <h3>看画质分档标签</h3>
+            <p>4K 原件、1080p 主流、720p 搬运三档。码率低于 2.5 Mbps 的条目会标黄，暗场景容易出现块状噪点。</p>
+          </li>
+          <li>
+            <h3>对照版本字母</h3>
+            <p>同一个编号有多个字母后缀时，按上线时间读。c 版常是补剪版，但不一定画质最好，先看条目页的机位说明。</p>
+          </li>
+          <li>
+            <h3>留意下架标记</h3>
+            <p>标「下架」的条目只保留元数据，不再提供文件。保留它是为了版本对照，不是为了继续观看。</p>
+          </li>
+          <li>
+            <h3>网络与设备准备</h3>
+            <p>1080p 条目建议 6 Mbps 以上稳定带宽；4K 原件建议 20 Mbps。移动端优先横屏，避免缩放导致的画面裁切。</p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- FAQ -->
+      <section class="block" id="faq" aria-labelledby="faq-h">
+        <div class="block-head">
+          <h2 id="faq-h">常见问答</h2>
+          <span class="sub">按提问频率排序</span>
+        </div>
+        <div class="faq-list">
+          <details class="faq">
+            <summary>编号里的字母后缀 a、b、c 到底什么意思？</summary>
+            <div class="faq-a">多数作者用字母表示<b>发布次序</b>，a 是首发，b、c 是后续版本。字母不等于画质等级：1028-15b 是 720p，反而低于 a 版的 1080p。遇到作者重排编号时，以作者主页公告为准。</div>
+          </details>
+          <details class="faq">
+            <summary>4K 原件和 1080p 压缩版差多少？</summary>
+            <div class="faq-a">以 1104-09 为例，两者时长都是 16:33，码率分别为 11.8 Mbps 与 3.2 Mbps，文件体积差约三倍。暗场景下压缩版噪点更明显，亮场景差异不大。带宽吃紧时先看 1080p 版。</div>
+          </details>
+          <details class="faq">
+            <summary>为什么有些条目显示下架还留着页面？</summary>
+            <div class="faq-a">下架条目的元数据用于<b>版本对照</b>，比如 1028-15b 与 15c 的帧序差异。页面标注「下架」后不再提供文件，只保留编号、上线日期与机位说明。</div>
+          </details>
+          <details class="faq">
+            <summary>条目时长突然变短是删减还是压缩？</summary>
+            <div class="faq-a">看时长是否变化。时长一致只体积变小，属于重编码压缩；时长缩短才是裁剪。1028-15b 比 a 版短 4 分多钟，属于裁剪；1104-09 两个版本时长一致，属于压缩。</div>
+          </details>
+          <details class="faq">
+            <summary>作者主页旧链接失效了怎么办？</summary>
+            <div class="faq-a">10 月 30 日「灰调」重组主页后，旧序号统一加了日期前缀，有 12 条链接变更。用「日期-序号」的新格式重新搜索，或在作者主页按时间排序查找。</div>
+          </details>
+          <details class="faq">
+            <summary>多机位版本一定更好吗？</summary>
+            <div class="faq-a">不一定。多机位版镜头切换更频繁，喜欢固定机位长镜头的观众会觉得跳。15c 版新增两个侧机位，但 14:20 处的跳切是争议点，选哪版取决于你的偏好。</div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 观众评论 -->
+      <section class="block" id="comments" aria-labelledby="comments-h">
+        <div class="block-head">
+          <h2 id="comments-h">观众评论</h2>
+          <span class="sub">摘自条目页留言，保留原话语气</span>
+        </div>
+        <div class="comments">
+          <div class="comment">
+            <div class="who"><span class="avatar">林</span>林间散步 · 11-06</div>
+            <p class="ctext"><b>1102-07a</b> 的场记板那 9 秒真的只有原件有，我找的搬运版全剪了。</p>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="avatar">夜</span>夜班交通 · 11-05</div>
+            <p class="ctext">15b 下架有点可惜，720p 归 720p，构图其实比 c 版稳。个人口味。</p>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="avatar">灰</span>灰蓝 · 11-05</div>
+            <p class="ctext">字母排序这个说法我不完全同意。07c 就是补剪，它既晚又更好，时间线解释不了质量。</p>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="avatar">小</span>小满 · 11-04</div>
+            <p class="ctext"><b>1104-09</b> 暗部噪点截图对比很实用，我在手机上看根本看不出差别，换到显示器一目了然。</p>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="avatar">竹</span>竹节 · 11-04</div>
+            <p class="ctext">索引更新挺勤快，就是搜索偶尔要换关键词。编号加日期前缀之后我旧收藏全废了。</p>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="avatar">阿</span>阿七 · 11-03</div>
+            <p class="ctext"><b>1031-04</b> 短版才 11 分钟，片尾花絮确实没了。作者说平台限时，我信一半吧。</p>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="avatar">K</span>K先生 · 11-03</div>
+            <p class="ctext">多机位版剪得有点碎，14:20 那个跳切我盯了三遍也没看懂逻辑。</p>
+          </div>
+          <div class="comment">
+            <div class="who"><span class="avatar">南</span>南岸 · 11-02</div>
+            <p class="ctext">建议把码率直接写在卡片上，别只给 4K 标签。有的 4K 还不如好点的 1080p。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 相关资讯 -->
+      <section class="block" id="news" aria-labelledby="news-h">
+        <div class="block-head">
+          <h2 id="news-h">相关资讯</h2>
+          <span class="sub">作者公告与平台规则变动</span>
+        </div>
+        <ul class="timeline">
+          <li>
+            <time datetime="2026-11-07">11-07</time>
+            <b>「夜航」连发两条编号</b>
+            <p>1107-02 与 1107-03 相隔 4 小时上线，作者在主页写「周末补更」。两条均为 1080p，未提 4K 计划。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-05">11-05</time>
+            <b>1028-15b 从作者主页移除</b>
+            <p>下架原因未公开说明。索引侧保留条目页并标注「下架」，供与 c 版做帧序对照。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-03">11-03</time>
+            <b>短版时长限制的说法出现</b>
+            <p>作者在 1031-04 评论区提到「平台限制 12 分钟」，未说明是哪个平台、是否全平台生效，暂列为单方说法。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-01">11-01</time>
+            <b>720p 档纳入画质对照表</b>
+            <p>新增码率 1.5—2.5 Mbps 区间标黄规则，覆盖此前未分类的 60 余条搬运版。</p>
+          </li>
+          <li>
+            <time datetime="2026-10-30">10-30</time>
+            <b>「灰调」主页编号前缀重组</b>
+            <p>47 条历史内容统一改为「日期-序号」格式，12 条链接变更，旧序号搜索会得到空结果。</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 相关推荐 -->
+      <section class="block" id="related" aria-labelledby="related-h">
+        <div class="block-head">
+          <h2 id="related-h">相关推荐标签</h2>
+          <span class="sub">按热度与更新频率</span>
+        </div>
+        <div class="rec-tags">
+          <a href="/#picks">棚拍固定机位<small>312</small></a>
+          <a href="/#picks">手持跟拍<small>186</small></a>
+          <a href="/#depth">双版本对照<small>63</small></a>
+          <a href="/#latest">十分钟以内短版<small>241</small></a>
+          <a href="/#depth">下架留档<small>35</small></a>
+          <a href="/#picks">多机位剪辑<small>97</small></a>
+          <a href="/#latest">二十分钟以上长版<small>88</small></a>
+          <a href="/#guide">码率标黄条目<small>60</small></a>
+          <a href="/#news">作者公告解读<small>本周 3</small></a>
+          <a href="/#comments">版本争议讨论<small>24</small></a>
+          <a href="/#rank">本周热度榜<small>10</small></a>
+          <a href="/#faq">编号后缀含义<small>问答</small></a>
+        </div>
+      </section>
+
+      <!-- 榜单 + 时间线补充板块 -->
+      <section class="block" id="rank" aria-labelledby="rank-h">
+        <div class="block-head">
+          <h2 id="rank-h">本周榜单：点击与收藏比前八</h2>
+          <span class="sub">统计区间 11-01 至 11-07</span>
+        </div>
+        <ol class="rank-list">
+          <li><span class="rname">1102-07a 原始机位版</span><span class="rsub">收藏比 0.41</span></li>
+          <li><span class="rname">1104-09 双版本对照</span><span class="rsub">0.38</span></li>
+          <li><span class="rname">1028-15c 多机位剪辑版</span><span class="rsub">0.35</span></li>
+          <li><span class="rname">1031-04 短版对照</span><span class="rsub">0.30</span></li>
+          <li><span class="rname">1107-02 夜航新发</span><span class="rsub">0.28</span></li>
+          <li><span class="rname">1102-07b 平台压缩版</span><span class="rsub">0.22</span></li>
+          <li><span class="rname">1028-15b 下架留档</span><span class="rsub">0.19</span></li>
+          <li><span class="rname">1107-03 夜航短条目</span><span class="rsub">0.17</span></li>
+        </ol>
+      </section>
+
+    </div>
+  </main>
+
+  <aside class="sidebar" aria-label="侧栏导航与说明">
+    <div class="side-card">
+      <h2>本页栏目</h2>
+      <nav class="side-nav" id="side-nav" aria-label="栏目快捷导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picks">精选内容推荐</a>
+        <a href="/#latest">最新更新记录</a>
+        <a href="/#cats">分类索引</a>
+        <a href="/#depth">深度解析</a>
+        <a href="/#guide">体验指南</a>
+        <a href="/#faq">常见问答</a>
+        <a href="/#comments">观众评论</a>
+        <a href="/#news">相关资讯</a>
+        <a href="/#related">相关推荐标签</a>
+        <a href="/#rank">本周榜单</a>
+      </nav>
+    </div>
+    <div class="side-card">
+      <h3>索引口径</h3>
+      <p class="side-note">条目数统计截至 <b>2026-11-07</b>，含下架留档 35 条。多版本条目按主编号计一次，不重复计数。画质档位以文件元数据读数为准，<b>4K 原件占比 11%</b>。</p>
+    </div>
+    <div class="side-card">
+      <h3>示例数据说明</h3>
+      <p class="side-note">本页编号、作者名、时长与码率均为垂类示例，用于展示索引结构与版本对照方法，<b>不对应任何真实文件或账号</b>。评论为示例语气，非真实用户原话。</p>
+    </div>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="操我啊啊啊啊91视频页尾标志">
+          <rect width="64" height="64" rx="14" fill="#1c1220"/>
+          <circle cx="32" cy="32" r="18" fill="none" stroke="#e0557a" stroke-width="4"/>
+          <path d="M26 24l16 8-16 8z" fill="#f4b942"/>
+        </svg>
+        <span class="brand-text">操我啊啊啊啊91视频</span>
+      </div>
+      <p>把编号、版本与画质分档对齐的内容索引站，面向成年观众，按时间与拍摄方式归档条目。</p>
+    </div>
+    <div class="footer-col">
+      <h3>索引栏目</h3>
+      <a href="/#overview">领域概览</a>
+      <a href="/#picks">精选内容推荐</a>
+      <a href="/#latest">最新更新记录</a>
+      <a href="/#cats">分类索引</a>
+    </div>
+    <div class="footer-col">
+      <h3>阅读栏目</h3>
+      <a href="/#depth">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问答</a>
+      <a href="/#comments">观众评论</a>
+    </div>
+    <div class="footer-col">
+      <h3>追踪栏目</h3>
+      <a href="/#news">相关资讯</a>
+      <a href="/#related">相关推荐标签</a>
+      <a href="/#rank">本周榜单</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>页尾更新时间：<b>2026-11-07</b>，对应更新项为 1107-02、1107-03 两条编号入库。</span>
+    <span>示例数据，不构成观看指引 · 仅限成年观众 · 版权归原作者</span>
+  </div>
+</footer>
+
+<button class="back-top" id="back-top" aria-label="回到顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+(function(){
+  // 移动端菜单
+  var toggle = document.getElementById('menu-toggle');
+  var mobileNav = document.getElementById('mobile-nav');
+  if(toggle && mobileNav){
+    toggle.addEventListener('click', function(){
+      var open = mobileNav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? '收起导航菜单' : '展开导航菜单');
+    });
+    mobileNav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A'){
+        mobileNav.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  // 回顶
+  var backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 480){
+      backTop.classList.add('show');
+    } else {
+      backTop.classList.remove('show');
+    }
+  }, {passive:true});
+  backTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  // 侧栏滚动高亮
+  var sideLinks = Array.prototype.slice.call(document.querySelectorAll('#side-nav a'));
+  var targets = sideLinks.map(function(a){
+    var id = a.getAttribute('href').split('#')[1];
+    return document.getElementById(id);
+  }).filter(Boolean);
+  function highlight(){
+    var pos = window.scrollY + 140;
+    var current = null;
+    targets.forEach(function(t){
+      if(t.offsetTop <= pos) current = t.id;
+    });
+    sideLinks.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '/#' + current);
+    });
+  }
+  window.addEventListener('scroll', highlight, {passive:true});
+  highlight();
+
+  // 本地搜索
+  var input = document.getElementById('site-search');
+  var btn = document.getElementById('search-btn');
+  var feedback = document.getElementById('search-feedback');
+  var searchables = Array.prototype.slice.call(document.querySelectorAll('main h2, main h3, main li, main .card, main p, main summary'));
+
+  function clearHits(){
+    document.querySelectorAll('.hit').forEach(function(el){ el.classList.remove('hit'); });
+  }
+
+  function doSearch(){
+    var q = (input.value || '').trim();
+    clearHits();
+    if(!q){
+      feedback.classList.remove('show');
+      feedback.textContent = '';
+      return;
+    }
+    var found = [];
+    var firstEl = null;
+    searchables.forEach(function(el){
+      if(el.textContent.indexOf(q) !== -1){
+        el.classList.add('hit');
+        if(!firstEl) firstEl = el;
+        found.push(el);
+      }
+    });
+    feedback.classList.add('show');
+    if(found.length === 0){
+      feedback.textContent = '没有找到包含「' + q + '」的条目。可试试编号（如 1102-07a）、作者名（如 灰调）或画质词（如 720p）。';
+    } else {
+      feedback.textContent = '找到 ' + found.length + ' 处包含「' + q + '」的内容，已在正文标出。';
+      if(firstEl && firstEl.scrollIntoView){
+        setTimeout(function(){
+          firstEl.scrollIntoView({behavior:'smooth', block:'center'});
+        }, 60);
+      }
+    }
+  }
+
+  if(btn && input){
+    btn.addEventListener('click', doSearch);
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); doSearch(); }
+    });
+  }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "操我啊啊啊啊91视频",
+  "description": "成人视频内容索引与版本对照站，按编号、作者、画质分档整理条目。",
+  "inLanguage": "zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "编号里的字母后缀 a、b、c 到底什么意思？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "多数作者用字母表示发布次序，a 是首发，b、c 是后续版本。字母不等于画质等级：1028-15b 是 720p，反而低于 a 版的 1080p。遇到作者重排编号时，以作者主页公告为准。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "4K 原件和 1080p 压缩版差多少？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "以 1104-09 为例，两者时长都是 16:33，码率分别为 11.8 Mbps 与 3.2 Mbps，文件体积差约三倍。暗场景下压缩版噪点更明显，亮场景差异不大。带宽吃紧时先看 1080p 版。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "为什么有些条目显示下架还留着页面？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "下架条目的元数据用于版本对照，比如 1028-15b 与 15c 的帧序差异。页面标注“下架”后不再提供文件，只保留编号、上线日期与机位说明。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "条目时长突然变短是删减还是压缩？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "看时长是否变化。时长一致只体积变小，属于重编码压缩；时长缩短才是裁剪。1028-15b 比 a 版短 4 分多钟，属于裁剪；1104-09 两个版本时长一致，属于压缩。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "作者主页旧链接失效了怎么办？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "10 月 30 日“灰调”重组主页后，旧序号统一加了日期前缀，有 12 条链接变更。用“日期-序号”的新格式重新搜索，或在作者主页按时间排序查找。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "多机位版本一定更好吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不一定。多机位版镜头切换更频繁，喜欢固定机位长镜头的观众会觉得跳。15c 版新增两个侧机位，但 14:20 处的跳切是争议点，选哪版取决于你的偏好。"
+      }
+    }
+  ]
+}
+</script>
+</body>
+          </html>
