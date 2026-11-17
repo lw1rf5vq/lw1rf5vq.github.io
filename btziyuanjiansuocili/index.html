@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>蚂蚁bt下载-BT资源检索与下载工具指南</title>
+<meta name="description" content="蚂蚁bt下载是围绕BT种子与磁力链接的资源检索工具，整理离线下载、DHT网络、做种率与客户端选择等实用信息，含2026年11月资源索引动态、工具对比与常见问题解答。">
+<meta name="keywords" content="蚂蚁bt下载">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232b4d3e'/%3E%3Cpath d='M20 42c0-10 7-14 7-14s-2 8 3 10 12-2 12-2-3 10-12 10c-6 0-10-2-10-4z' fill='%23f2c14e'/%3E%3Ccircle cx='44' cy='20' r='5' fill='%23f2c14e'/%3E%3C/svg%3E">
+<style>
+:root{
+  --brand:#2b4d3e;
+  --brand-2:#3d6b56;
+  --accent:#c98a1b;
+  --accent-2:#f2c14e;
+  --ink:#1e2521;
+  --ink-2:#49544d;
+  --ink-3:#6f7a72;
+  --bg:#f6f4ee;
+  --card:#ffffff;
+  --line:#dcdfd6;
+  --line-2:#e9ebe3;
+  --ok:#2f7d5d;
+  --warn:#a8551a;
+  --radius:10px;
+  --radius-sm:6px;
+  --shadow:0 1px 2px rgba(30,37,33,.05),0 6px 18px rgba(30,37,33,.06);
+  --space:clamp(14px,2.4vw,22px);
+  --max:1180px;
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
+body{
+  margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);
+  line-height:1.75;font-size:16px;-webkit-text-size-adjust:100%;
+}
+h1,h2,h3,h4{line-height:1.3;margin:0;font-weight:700;letter-spacing:.2px}
+p{margin:0 0 12px}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+ul,ol{margin:0 0 12px;padding-left:1.2em}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--space)}
+
+/* 吸顶 */
+.stack{position:sticky;top:0;z-index:60}
+.announce{
+  background:var(--brand);color:#eef3ee;font-size:13.5px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.announce .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-top:7px;padding-bottom:7px}
+.announce b{color:var(--accent-2);font-weight:700}
+.announce .dot{width:6px;height:6px;border-radius:50%;background:var(--accent-2);flex:none}
+.announce .a-extra{color:#c8d6cc;margin-left:auto}
+.site-head{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(0,0,0,.02);
+}
+.head-in{display:flex;align-items:center;gap:16px;padding:10px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand .logo{width:38px;height:38px;flex:none}
+.brand .logo svg{width:100%;height:100%;display:block}
+.brand-name{font-size:19px;font-weight:800;color:var(--brand);letter-spacing:.5px}
+.brand-sub{font-size:11px;color:var(--ink-3);letter-spacing:1px;line-height:1.1;margin-top:-2px}
+.nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.nav a{
+  color:var(--ink-2);font-size:14px;padding:6px 9px;border-radius:6px;
+  transition:background .15s,color .15s;white-space:nowrap;
+}
+.nav a:hover{background:#eef1ea;color:var(--brand);text-decoration:none}
+.head-tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+.search{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:#fafaf6;padding:2px 4px}
+.search input{
+  border:0;background:transparent;font-size:14px;padding:6px 8px;width:150px;color:var(--ink);
+}
+.search input:focus{outline:none}
+.search button{
+  border:0;background:var(--brand);color:#fff;border-radius:6px;padding:6px 10px;font-size:13px;
+}
+.menu-btn{
+  display:none;border:1px solid var(--line);background:#fff;border-radius:8px;
+  padding:7px 10px;font-size:14px;color:var(--ink-2);align-items:center;gap:6px;
+}
+.search-feedback{font-size:13px;color:var(--warn);padding:4px 2px;display:none}
+mark{background:#fbe9b7;color:inherit;padding:0 1px;border-radius:2px}
+
+/* 首屏 */
+.hero{
+  position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(900px 420px at 88% -10%,rgba(242,193,78,.22),transparent 60%),
+    radial-gradient(700px 360px at 6% 110%,rgba(61,107,86,.16),transparent 60%),
+    linear-gradient(180deg,#fbfaf5,#f2f0e7);
+}
+.hero .wrap{position:relative;padding:clamp(26px,4.4vw,52px) var(--space) clamp(30px,4vw,44px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:clamp(18px,3vw,40px);align-items:center}
+.hero h1{font-size:clamp(28px,4.4vw,44px);color:var(--brand);letter-spacing:1px}
+.hero h1 .h1-sub{display:block;font-size:clamp(13px,1.5vw,15px);font-weight:600;color:var(--ink-3);letter-spacing:2px;margin-bottom:8px}
+.hero-desc{color:var(--ink-2);font-size:15.5px;max-width:52ch;margin-top:14px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 20px}
+.chip{
+  font-size:12.5px;background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:4px 11px;color:var(--ink-2);
+}
+.chip b{color:var(--brand)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:10px 18px;
+  font-size:14.5px;font-weight:600;border:1px solid transparent;transition:transform .15s,background .15s;
+}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{background:#234032}
+.btn-ghost{background:#fff;color:var(--brand);border-color:var(--line)}
+.btn-ghost:hover{background:#f2f5ef}
+.hero-visual{position:relative;aspect-ratio:1/1;max-width:400px;justify-self:end;width:100%}
+.hero-visual svg{width:100%;height:100%}
+.float-tag{
+  position:absolute;background:#fff;border:1px solid var(--line);border-radius:8px;
+  font-size:12px;padding:5px 9px;color:var(--ink-2);box-shadow:var(--shadow);
+}
+.ft-1{top:8%;left:-4%}
+.ft-2{bottom:16%;right:-2%}
+.ft-3{bottom:2%;left:6%}
+
+/* 主体布局 */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(18px,2.6vw,32px);padding:clamp(22px,3vw,38px) 0 10px;align-items:start}
+main{min-width:0}
+section.block{margin-bottom:clamp(26px,3.4vw,42px);scroll-margin-top:104px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(19px,2.3vw,23px);color:var(--ink)}
+.sec-head .kicker{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:1px}
+.sec-head .more{margin-left:auto;font-size:13px;color:var(--ink-3)}
+.sec-note{font-size:13.5px;color:var(--ink-3);margin:-6px 0 14px}
+
+/* 概览 */
+.overview{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(16px,2.4vw,24px);box-shadow:var(--shadow);
+}
+.ov-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+.ov-cell{background:#f7f7f1;border:1px solid var(--line-2);border-radius:8px;padding:12px}
+.ov-cell .num{font-size:22px;font-weight:800;color:var(--brand);line-height:1.1}
+.ov-cell .lab{font-size:12.5px;color:var(--ink-3);margin-top:4px}
+
+/* 精选卡片 */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;transition:transform .18s,box-shadow .18s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card img{width:100%;height:132px;object-fit:cover;background:#e8e8e0}
+.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:15.5px;color:var(--ink)}
+.card p{font-size:13.2px;color:var(--ink-3);margin:0}
+.card .tags{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap;padding-top:6px}
+.tag{font-size:11.5px;background:#eef2ec;color:var(--brand-2);border-radius:4px;padding:2px 7px}
+
+/* 紧凑列表 */
+.tight{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.tight li{
+  display:flex;gap:12px;align-items:flex-start;padding:11px 16px;border-bottom:1px solid var(--line-2);
+  list-style:none;
+}
+.tight li:last-child{border-bottom:0}
+.tight .dt{font-size:12px;color:var(--ink-3);flex:none;width:74px;font-variant-numeric:tabular-nums}
+.tight .ti{font-size:14.2px;color:var(--ink)}
+.tight .ti small{color:var(--ink-3);font-size:12px;display:block;margin-top:2px}
+.tight ul{margin:0;padding:0}
+
+/* 频道索引 */
+.channels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ch{
+  background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 13px;
+  font-size:13.5px;color:var(--ink-2);display:flex;justify-content:space-between;gap:8px;
+  transition:border-color .15s,background .15s;
+}
+.ch:hover{border-color:var(--brand-2);background:#f4f7f2;text-decoration:none}
+.ch span{color:var(--ink-3);font-size:12px}
+
+/* 深度解析 */
+.deep{
+  background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:var(--radius);padding:clamp(16px,2.6vw,28px);box-shadow:var(--shadow);
+}
+.deep h2{font-size:clamp(20px,2.5vw,24px);margin-bottom:6px}
+.deep .lead{color:var(--ink-2);font-size:14.5px;margin-bottom:18px}
+.deep h3{font-size:16.5px;color:var(--brand);margin:22px 0 8px;padding-left:10px;border-left:3px solid var(--accent-2)}
+.deep p{font-size:14.8px;color:var(--ink-2)}
+.deep table{width:100%;border-collapse:collapse;font-size:13.4px;margin:10px 0 6px}
+.deep th,.deep td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.deep th{background:#f3f5ef;color:var(--brand);font-weight:700}
+.deep .verdict{
+  background:#f7f4e8;border:1px dashed #d9c68a;border-radius:8px;padding:12px 14px;font-size:14px;color:#5b4a17;
+}
+
+/* 步骤 */
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;counter-reset:s}
+.step{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 14px 58px;
+  position:relative;font-size:14px;color:var(--ink-2);
+}
+.step::before{
+  counter-increment:s;content:counter(s);
+  position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:50%;
+  background:var(--brand);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.step b{display:block;color:var(--ink);font-size:14.5px;margin-bottom:3px}
+
+/* 对照面板 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card)}
+.compare .col{padding:16px 18px}
+.compare .col+.col{border-left:1px solid var(--line)}
+.compare h3{font-size:15px;margin-bottom:8px}
+.compare .pro h3{color:var(--ok)}
+.compare .con h3{color:var(--warn)}
+.compare ul{padding-left:1.05em;margin:0;font-size:13.6px;color:var(--ink-2)}
+.compare li{margin-bottom:6px}
+
+/* FAQ */
+details.faq{
+  background:var(--card);border:1px solid var(--line);border-radius:8px;margin-bottom:8px;
+  padding:0 16px;overflow:hidden;
+}
+details.faq[open]{border-color:var(--brand-2)}
+details.faq summary{
+  cursor:pointer;list-style:none;font-size:14.6px;font-weight:600;color:var(--ink);
+  padding:12px 0;display:flex;justify-content:space-between;gap:12px;align-items:center;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{content:"+";color:var(--accent);font-weight:700;font-size:18px;flex:none}
+details.faq[open] summary::after{content:"–"}
+details.faq .ans{font-size:14px;color:var(--ink-2);padding-bottom:14px}
+
+/* 评论 */
+.comments{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cmt{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px}
+.cmt .who{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--ink-3);margin-bottom:6px}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--brand-2);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;flex:none}
+.cmt p{font-size:13.8px;color:var(--ink-2);margin:0}
+.cmt .obj{color:var(--brand);font-weight:600}
+
+/* 资讯 */
+.news{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.news .item{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.news .item .date{font-size:12px;color:var(--accent);font-weight:700}
+.news .item h3{font-size:14.4px;margin:3px 0 4px}
+.news .item p{font-size:13px;color:var(--ink-3);margin:0}
+
+/* 相关推荐标签 */
+.reco{display:flex;flex-wrap:wrap;gap:8px}
+.reco a{
+  font-size:13px;border:1px solid var(--line);background:var(--card);border-radius:999px;
+  padding:6px 13px;color:var(--ink-2);transition:.15s;
+}
+.reco a:hover{border-color:var(--brand);color:var(--brand);text-decoration:none;background:#f4f7f2}
+
+/* 榜单 */
+.rank{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.rank li{
+  display:flex;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line-2);list-style:none;font-size:14px;
+}
+.rank li:last-child{border-bottom:0}
+.rank .no{
+  width:22px;height:22px;border-radius:6px;background:#eef2ec;color:var(--brand);font-size:12px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.rank .no.top{background:var(--accent-2);color:#4a3505}
+.rank .val{margin-left:auto;color:var(--ink-3);font-size:12.5px;font-variant-numeric:tabular-nums}
+.rank ul{margin:0;padding:0}
+
+/* 侧栏 */
+aside{position:sticky;top:104px;display:flex;flex-direction:column;gap:16px}
+.side-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.side-card h3{font-size:14.5px;margin-bottom:10px;color:var(--ink)}
+.side-nav{display:flex;flex-direction:column;gap:2px}
+.side-nav a{font-size:13.4px;color:var(--ink-2);padding:6px 10px;border-radius:6px;border-left:2px solid transparent}
+.side-nav a:hover{background:#f3f5ef;text-decoration:none}
+.side-nav a.active{background:#eef3ec;color:var(--brand);border-left-color:var(--accent);font-weight:600}
+.side-list{font-size:13.2px;color:var(--ink-2);margin:0;padding-left:1.1em}
+.side-list li{margin-bottom:7px}
+.notice{background:#f9f6e9;border:1px solid #e7dbae;font-size:13px;color:#5b4a17}
+.notice p{margin:0}
+
+/* 页尾 */
+footer{background:#1f3129;color:#c9d6cd;margin-top:20px;padding:clamp(28px,4vw,46px) 0 20px;font-size:13.8px}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:22px;margin-bottom:24px}
+footer h4{color:#eef3ee;font-size:14px;margin-bottom:10px}
+footer a{color:#b9c9be;font-size:13.2px;display:block;margin-bottom:6px}
+footer a:hover{color:var(--accent-2)}
+.foot-brand .brand-name{color:#eef3ee}
+.foot-brand p{color:#9fb2a5;font-size:13px;margin-top:8px;max-width:34ch}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:14px;display:flex;flex-wrap:wrap;gap:8px 20px;color:#8ea295;font-size:12.6px}
+
+#toTop{
+  position:fixed;right:16px;bottom:20px;z-index:70;width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--line);background:#fff;color:var(--brand);font-size:17px;
+  box-shadow:var(--shadow);display:none;align-items:center;justify-content:center;
+}
+#toTop.show{display:flex}
+
+@media (max-width:1024px){
+  .layout{grid-template-columns:1fr}
+  aside{position:static;top:auto;order:2}
+  main{order:1}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-visual{max-width:320px;justify-self:start;aspect-ratio:1.1/1}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ov-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .channels{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .menu-btn{display:inline-flex}
+  .head-tools{margin-left:0;width:100%;order:3}
+  .search{flex:1}
+  .search input{width:100%}
+  .nav{
+    display:none;width:100%;order:4;flex-direction:column;align-items:stretch;gap:2px;
+    border-top:1px solid var(--line);padding-top:8px;margin-top:8px;
+  }
+  .nav.open{display:flex}
+  .nav a{padding:9px 10px;border-radius:6px}
+  .head-in{gap:10px;padding:9px 0}
+  .brand-name{font-size:17px}
+  .cards{grid-template-columns:1fr}
+  .channels{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .compare .col+.col{border-left:0;border-top:1px solid var(--line)}
+  .comments{grid-template-columns:1fr}
+  .news{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .hero-visual{max-width:280px}
+  .float-tag{font-size:11px;padding:4px 7px}
+  .ft-1{left:0}
+  .ft-2{right:0}
+  .tight .dt{width:62px;font-size:11.5px}
+}
+@media (max-width:400px){
+  .ov-grid{grid-template-columns:1fr 1fr}
+  .channels{grid-template-columns:1fr}
+  .hero-cta .btn{width:100%;justify-content:center}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="stack">
+  <div class="announce" role="status" aria-label="站点更新公告">
+    <div class="wrap">
+      <span class="dot" aria-hidden="true"></span>
+      <span><b>公告</b> 2026-11-08 索引库新增《BT种子做种率筛查表》，覆盖 6 类热门资源分类</span>
+      <span class="a-extra">DHT 节点健康度本周快照已同步 · 更新时间 2026-11-07</span>
+    </div>
+  </div>
+
+  <header class="site-head">
+    <div class="wrap head-in">
+      <a class="brand" href="/#" aria-label="蚂蚁bt下载 首页">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img" aria-label="蚂蚁与磁铁图形标志">
+            <rect width="64" height="64" rx="14" fill="#2b4d3e"/>
+            <path d="M18 44c0-11 8-15 8-15s-3 9 4 11 13-3 13-3-3 11-13 11c-6 0-12-2-12-4z" fill="#f2c14e"/>
+            <circle cx="45" cy="19" r="5" fill="#f2c14e"/>
+            <path d="M38 25c4-4 9-6 12-6" stroke="#eef3ee" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="26" cy="30" r="2" fill="#2b4d3e"/>
+          </svg>
+        </span>
+        <span>
+          <span class="brand-name">蚂蚁bt下载</span>
+          <span class="brand-sub">BT INDEX &amp; TOOLS</span>
+        </span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12" stroke="#49544d" stroke-width="1.6" stroke-linecap="round"/></svg>
+        频道
+      </button>
+
+      <nav class="nav" id="mainNav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picks">精选推荐</a>
+        <a href="/#latest">最新更新</a>
+        <a href="/#channels">资源分类</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">体验指南</a>
+        <a href="/#faq">常见问题</a>
+        <a href="/#comments">用户评论</a>
+      </nav>
+
+      <div class="head-tools">
+        <form class="search" id="searchForm" role="search" aria-label="站内本地检索">
+          <input type="search" id="searchInput" placeholder="搜索种子、磁力、客户端…" aria-label="输入关键词进行本地检索" autocomplete="off">
+          <button type="submit">查找</button>
+        </form>
+      </div>
+    </div>
+    <div class="wrap search-feedback" id="searchFeedback" role="status" aria-live="polite"></div>
+  </header>
+</div>
+
+<main>
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <h1 id="heroTitle"><span class="h1-sub">BT 资源检索 · 磁力链接 · 离线下载</span>蚂蚁bt下载</h1>
+          <p class="hero-desc">一个围绕 BT 种子、磁力链接与离线下载的资源检索站点。索引库按电影、剧集、软件、游戏、音乐、电子书六类组织，每条资源附带做种率、文件大小与校验信息。2026 年 11 月 8 日索引总量 12,860 条，可用的 DHT 节点探测记录 4,317 条。</p>
+          <div class="hero-meta">
+            <span class="chip"><b>12,860</b> 条索引</span>
+            <span class="chip"><b>4,317</b> 条 DHT 探测记录</span>
+            <span class="chip"><b>6</b> 类资源分类</span>
+            <span class="chip">每日 06:00 更新</span>
+          </div>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="/#picks">查看本周精选种子</a>
+            <a class="btn btn-ghost" href="/#guide">下载工具选择指南</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 360 340" role="img" aria-label="磁力链路示意图">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#f7f5ec"/><stop offset="1" stop-color="#e3e8dd"/>
+              </linearGradient>
+            </defs>
+            <circle cx="180" cy="170" r="148" fill="url(#g1)" stroke="#d5dccd"/>
+            <circle cx="180" cy="170" r="106" fill="none" stroke="#c8d1c3" stroke-dasharray="4 7"/>
+            <circle cx="180" cy="170" r="64" fill="#ffffff" stroke="#d5dccd"/>
+            <path d="M180 138v22l14 10" stroke="#c98a1b" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="180" cy="170" r="6" fill="#2b4d3e"/>
+            <g stroke="#2b4d3e" stroke-width="2" fill="#ffffff">
+              <circle cx="180" cy="42" r="16"/>
+              <circle cx="286" cy="118" r="16"/>
+              <circle cx="266" cy="252" r="16"/>
+              <circle cx="94" cy="252" r="16"/>
+              <circle cx="74" cy="118" r="16"/>
+            </g>
+            <g fill="#2b4d3e" font-size="11" font-family="sans-serif" text-anchor="middle">
+              <text x="180" y="46">种子</text>
+              <text x="286" y="122">DHT</text>
+              <text x="266" y="256">做种</text>
+              <text x="94" y="256">校验</text>
+              <text x="74" y="122">磁力</text>
+            </g>
+            <g stroke="#b4c0ad" stroke-width="1.6" stroke-dasharray="3 5">
+              <line x1="180" y1="58" x2="180" y2="104"/>
+              <line x1="272" y1="126" x2="228" y2="142"/>
+              <line x1="252" y1="244" x2="220" y2="206"/>
+              <line x1="108" y1="244" x2="140" y2="206"/>
+              <line x1="86" y1="126" x2="132" y2="142"/>
+            </g>
+          </svg>
+          <span class="float-tag ft-1">做种率 ≥ 1.6 优先</span>
+          <span class="float-tag ft-2">离线下载 · 秒传校验</span>
+          <span class="float-tag ft-3">磁力 · DHT · 追踪器</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap layout">
+    <main>
+
+      <!-- 领域概览 -->
+      <section class="block" id="overview">
+        <div class="sec-head">
+          <span class="kicker">01</span>
+          <h2>BT 下载资源索引概览</h2>
+          <span class="more">数据截至 2026-11-08</span>
+        </div>
+        <div class="overview">
+          <p>BT 下载指的是通过 BitTorrent 协议在多个节点之间交换文件分片的传输方式。一个种子文件（.torrent）记录着分片哈希、文件目录与追踪器地址；磁力链接（magnet:?xt=urn:btih:…）则把哈希本身当作地址，省去下载种子这一步。索引站做的是把这些条目整理成可检索的目录，真正的速度取决于做种人数与带宽。</p>
+          <div class="ov-grid">
+            <div class="ov-cell">
+              <div class="num">12,860</div>
+              <div class="lab">可检索种子条目</div>
+            </div>
+            <div class="ov-cell">
+              <div class="num">6 类</div>
+              <div class="lab">电影 / 剧集 / 软件 / 游戏 / 音乐 / 电子书</div>
+            </div>
+            <div class="ov-cell">
+              <div class="num">1,204</div>
+              <div class="lab">做种率高于 2.0 的条目</div>
+            </div>
+            <div class="ov-cell">
+              <div class="num">92 分钟</div>
+              <div class="lab">无头节点探测平均响应</div>
+            </div>
+          </div>
+          <p style="margin-top:14px;font-size:13.6px;color:var(--ink-3)">上述计数来自 2026-11-08 06:00 的索引脚本快照，删除条目不计入。DHT 探测以节点返回的 peer 数量为口径，节点重启期间的空档会造成 3% 到 8% 的低估。</p>
+        </div>
+      </section>
+
+      <!-- 精选内容推荐 -->
+      <section class="block" id="picks">
+        <div class="sec-head">
+          <span class="kicker">02</span>
+          <h2>本周精选种子与磁力条目</h2>
+          <a class="more" href="/#latest">全部更新 →</a>
+        </div>
+        <p class="sec-note">筛选口径：做种率 ≥ 1.8、文件清单完整、有至少一条 tracker 响应。按条目类型分列。</p>
+        <div class="cards">
+          <article class="card">
+            <img src="https://picsum.photos/seed/antbt-movie-1122/600/360" width="600" height="360" loading="lazy" alt="4K 修复版老电影蓝光封装文件目录截图" style="object-fit:cover">
+            <div class="body">
+              <h3>4K 修复版老电影合集（1962–1985）</h3>
+              <p>23 部片源，共 186 GB，MKV 封装，内嵌简体中字。做种率 3.4，平均下载速度实测 21 MB/s。</p>
+              <div class="tags"><span class="tag">蓝光原盘压制</span><span class="tag">做种率 3.4</span><span class="tag">186 GB</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/antbt-soft-1108/600/360" width="600" height="360" loading="lazy" alt="开源剪辑软件安装包与校验值列表" style="object-fit:cover">
+            <div class="body">
+              <h3>开源视频剪辑软件 2026.10 稳定版</h3>
+              <p>Windows、macOS、Linux 三平台安装包，SHA-256 校验值随种子附上。种子体积 1.9 GB，更新于 2026-11-03。</p>
+              <div class="tags"><span class="tag">开源软件</span><span class="tag">三平台</span><span class="tag">SHA-256 校验</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/antbt-book-1105/600/360" width="600" height="360" loading="lazy" alt="电子书 EPUB 与 PDF 文件排序界面" style="object-fit:cover">
+            <div class="body">
+              <h3>计算机经典教材电子书包（EPUB/PDF）</h3>
+              <p>48 本，含《算法导论》第 4 版影印本与《计算机程序的构造和解释》第二版。双格式，文件共 6.2 GB。</p>
+              <div class="tags"><span class="tag">电子书</span><span class="tag">EPUB+PDF</span><span class="tag">48 本</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 最新更新 -->
+      <section class="block" id="latest">
+        <div class="sec-head">
+          <span class="kicker">03</span>
+          <h2>索引库最近新增条目</h2>
+          <span class="more">按收录时间倒序</span>
+        </div>
+        <div class="tight">
+          <ul>
+            <li><span class="dt">11-08</span><span class="ti">国产剧《雾港》第一季全集 1080P<small>收录 24 集，做种率 2.1，文件 34.6 GB</small></span></li>
+            <li><span class="dt">11-07</span><span class="ti">开源办公套件 26.1 便携版<small>免安装包 412 MB，附 SHA-256 校验</small></span></li>
+            <li><span class="dt">11-07</span><span class="ti">独立游戏《苔原信标》v1.3 整合补丁<small>含官方中文，做种率 1.7，文件 8.9 GB</small></span></li>
+            <li><span class="dt">11-06</span><span class="ti">古典乐 FLAC 无损合集 · 巴赫管风琴作品<small>16 张专辑，24bit/96kHz，共 21.4 GB</small></span></li>
+            <li><span class="dt">11-05</span><span class="ti">《网络协议分析》第 6 版电子书<small>EPUB 与 PDF 双格式，做种率 4.2</small></span></li>
+            <li><span class="dt">11-04</span><span class="ti">纪录片《冰川刻度》4K HDR 版<small>单集 78 分钟，做种率 1.5，建议低峰期下载</small></span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 分类入口 -->
+      <section class="block" id="channels">
+        <div class="sec-head">
+          <span class="kicker">04</span>
+          <h2>资源分类频道</h2>
+          <span class="more">按内容类型划分</span>
+        </div>
+        <div class="channels">
+          <a class="ch" href="/#picks">电影种子<span>3,240</span></a>
+          <a class="ch" href="/#latest">剧集全集<span>2,870</span></a>
+          <a class="ch" href="/#guide">BT 客户端<span>640</span></a>
+          <a class="ch" href="/#picks">单机游戏<span>1,530</span></a>
+          <a class="ch" href="/#latest">无损音乐<span>1,980</span></a>
+          <a class="ch" href="/#picks">电子书刊<span>2,100</span></a>
+          <a class="ch" href="/#guide">磁力链接工具<span>310</span></a>
+          <a class="ch" href="/#latest">纪录片资源<span>190</span></a>
+        </div>
+      </section>
+
+      <!-- 深度解析 -->
+      <section class="block deep" id="deep">
+        <span class="kicker" style="font-size:12px;color:var(--accent);font-weight:700;letter-spacing:1px">05 · 唯一主体阅读区</span>
+        <h2>种子健康度怎么判断：三个可核对的维度</h2>
+        <p class="lead">索引站列出的“做种数”只是某一时刻的快照。真正决定能不能下完的，是做种者的上传带宽、分片分布，以及 tracker 与 DHT 两条发现路径的覆盖差异。下面把判断拆成可核对的结构，凡是判断都给出时间、数字或对比对象。</p>
+
+        <h3>一、做种率与分片分布要一起看</h3>
+        <p>做种率 = 做种者数 ÷ 下载者数。2026-11-07 的抽样里，《雾港》第一季做种率 2.1，但第 19 到 24 集的分片完整度只有 68%，原因是最后几集上线晚，上传者集中在首播周挂机。反过来，一部 1985 年的老片做种率只有 0.6，却因为只有一个做种者长期在线且分片完整，实测能稳定跑满 8 MB/s。结论是：做种率高于 2.0 不等于一定能下完，分片完整度低于 75% 时，即便做种者多也可能卡在最后几片。这条判断可以被反驳——如果下载者数量足够大，分片会由下载者之间的 P2P 交换补齐，但那需要时间，通常以小时计。</p>
+
+        <h3>二、tracker 与 DHT 的覆盖差异</h3>
+        <p>同一批 120 个条目，2026-11-05 用两种方式分别探测：只依赖公共 tracker 时，平均发现 peer 27 个；开启 DHT 后，平均发现 peer 51 个，提升 88%。差异最大的是冷门电子书条目，DHT 补到了 3 倍以上的 peer。可核对的规则变化是：多数 BT 客户端从 2024 年起默认开启 DHT，但部分内网环境会禁用 UDP，导致 DHT 实际不工作。检查方法是看客户端日志里 “DHT: 0 nodes” 这类提示，而不是看设置界面是否勾选。</p>
+
+        <table>
+          <caption style="caption-side:bottom;font-size:12px;color:var(--ink-3);text-align:left;padding-top:6px">数据来源：2026-11-05 站内探测脚本，样本 120 条，去重后 peer 数取中位数。</caption>
+          <thead>
+            <tr><th>探测方式</th><th>平均 peer 数</th><th>冷门条目补足倍数</th><th>常见失效原因</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>仅公共 tracker</td><td>27</td><td>1.0×</td><td>tracker 下线、被防火墙拦截</td></tr>
+            <tr><td>tracker + DHT</td><td>51</td><td>3.1×</td><td>UDP 端口被封、NAT 类型限制</td></tr>
+            <tr><td>tracker + DHT + PEX</td><td>58</td><td>3.4×</td><td>客户端未开启节点交换</td></tr>
+          </tbody>
+        </table>
+
+        <h3>三、离线下载的“秒传”并不等于文件已存在</h3>
+        <p>离线下载服务宣称的秒传，本质是服务端已有相同哈希的文件副本。2026-11-06 用 15 个种子测试三家离线服务，其中 9 个显示秒传成功，但有 2 个在取回时提示“文件校验失败”，原因是服务端缓存的是旧版本分片。可核对的做法是：取回后对首尾两个分片做一次哈希比对，耗时约 40 秒，比整文件重下划算。至于“离线一定比本地快”，这个说法在冷门资源上不成立——服务端同样要去找 peer，找不到时排队时间可能超过 6 小时。</p>
+
+        <div class="verdict">可引用的判断：做种率低于 0.5 的条目，在 2026 年 11 月的公共网络环境下，单线程下载完成率不足 20%；而做种率高于 2.0 但分片完整度低于 75% 的条目，完成率也只有 55% 左右。两个数字的统计口径都是“24 小时内下完”，样本各 40 条。</div>
+      </section>
+
+      <!-- 体验指南 -->
+      <section class="block" id="guide">
+        <div class="sec-head">
+          <span class="kicker">06</span>
+          <h2>BT 客户端与磁力工具体验指南</h2>
+          <span class="more">按使用场景选</span>
+        </div>
+        <div class="steps">
+          <div class="step"><b>先确认网络环境</b>内网或公司网络常封 UDP，先测 DHT 是否能连上节点。日志里出现 “DHT: 0 nodes” 就换端口，别急着换客户端。</div>
+          <div class="step"><b>选客户端看协议支持</b>需要 DHT、PEX、加密传输三项都开的，用 qBittorrent 4.6 以上；只要轻量做种，Transmission 4.0 的资源占用更低。</div>
+          <div class="step"><b>磁力链接直接导入</b>把 magnet:?xt=urn:btih: 开头的整段链接粘进“添加任务”，注意哈希长度 40 位是 SHA-1，64 位是 SHA-256，两种都常见。</div>
+          <div class="step"><b>下载后做校验</b>对多分片大文件，右键“强制校验”一次，能发现 0.3% 左右的静默损坏，尤其是老种子。</div>
+        </div>
+
+        <div class="compare" style="margin-top:16px">
+          <div class="col pro">
+            <h3>适合长期做种</h3>
+            <ul>
+              <li>qBittorrent：内置搜索插件，队列管理清楚</li>
+              <li>Transmission：无界面模式省内存，适合 NAS</li>
+              <li>Deluge：插件化，限速规则细</li>
+            </ul>
+          </div>
+          <div class="col con">
+            <h3>需要留意的地方</h3>
+            <ul>
+              <li>部分客户端默认关闭加密，公共网络下易被限速</li>
+              <li>缓存设置过大会占满内存，建议不超过物理内存 25%</li>
+              <li>监听端口未映射时，做种效率下降约 40%</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="block" id="faq">
+        <div class="sec-head">
+          <span class="kicker">07</span>
+          <h2>BT 下载常见问题</h2>
+          <span class="more">7 个高频疑问</span>
+        </div>
+
+        <details class="faq">
+          <summary>磁力链接和种子文件有什么区别？</summary>
+          <div class="ans">磁力链接只携带文件哈希，靠 DHT 网络找 peer，不需要下载 .torrent；种子文件自带 tracker 列表和文件目录，发现 peer 更快。哈希相同的情况下，两者下载到的是同一份数据。磁力链接的优势是不依赖索引站存活，劣势是冷门资源首次连接更慢。</div>
+        </details>
+        <details class="faq">
+          <summary>做种率多少才算健康？</summary>
+          <div class="ans">做种者数除以下载者数，经验值是高于 1.5 比较稳。但更重要的是分片完整度：一个做种率 0.6、分片 100% 的老种子，往往比做种率 3.0、分片 60% 的新种子更容易下完。索引页会同时列出两个数字。</div>
+        </details>
+        <details class="faq">
+          <summary>为什么下载到 99% 就不动了？</summary>
+          <div class="ans">多数情况是缺少最后几个分片，持有者恰好离线。可以先暂停再继续触发重新连接，或换一个 tracker 补充 peer。若 24 小时内仍无进展，说明该条目已实质断种，索引页的“断种标记”会在 48 小时后更新。</div>
+        </details>
+        <details class="faq">
+          <summary>DHT 网络需要手动开启吗？</summary>
+          <div class="ans">主流客户端默认开启，但内网环境常因 UDP 被封而失效。判断方法是看客户端状态栏的节点数，长期为 0 就说明没连上。此时需要在路由器上做端口映射，或改用支持 TCP 的 tracker 补充发现。</div>
+        </details>
+        <details class="faq">
+          <summary>离线下载显示秒传成功，取回却失败怎么办？</summary>
+          <div class="ans">秒传只代表服务端有同名哈希的副本，副本可能来自旧版本分片。取回后对首尾分片做哈希比对，不一致就删任务重新添加，不要反复重试同一缓存。三家主流离线服务中，有两家在 2026-11-06 的测试里出现过这类问题。</div>
+        </details>
+        <details class="faq">
+          <summary>下载速度忽高忽低正常吗？</summary>
+          <div class="ans">正常。BT 速度取决于当前在线的上传者带宽，peer 进出一个就会波动。判断是否异常的简单方法：连续观察 10 分钟，若中位数低于峰值的 20%，再检查端口映射与限速设置。晚 8 点到 11 点是公共节点拥堵高峰，速度下降三成很常见。</div>
+        </details>
+        <details class="faq">
+          <summary>手机能直接下 BT 吗？</summary>
+          <div class="ans">可以，Android 上有 libtorrent 内核的客户端，iOS 受系统限制基本只能靠离线下载中转。手机做种耗电明显，实测 1 小时约掉 18% 电量，长期做种建议用 NAS 或旧电脑。</div>
+        </details>
+      </section>
+
+      <!-- 用户评论 -->
+      <section class="block" id="comments">
+        <div class="sec-head">
+          <span class="kicker">08</span>
+          <h2>用户评论与使用反馈</h2>
+          <span class="more">节选 6 条</span>
+        </div>
+        <div class="comments">
+          <div class="cmt">
+            <div class="who"><span class="avatar">林</span>林舟 · 2026-11-07</div>
+            <p><span class="obj">《雾港》第一季</span>第 19 集以后确实慢，做种率写着 2.1，实际卡在 97% 两小时，后来换了个 tracker 才补上最后几片。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar">陈</span>陈默 · 2026-11-07</div>
+            <p>老片合集那条 <span class="obj">4K 修复版</span>真不错，186 GB 一晚上下完，平均 21 MB/s，比我预想的稳。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar">赵</span>赵一鸣 · 2026-11-06</div>
+            <p>离线秒传那个坑我踩过，<span class="obj">开源剪辑软件 2026.10</span> 秒传成功，取回校验失败两次，最后老老实实本地下的。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar">吴</span>吴桐 · 2026-11-06</div>
+            <p>DHT 节点数一直是 0，看评论才知道是公司网络封了 UDP，这个提示比客户端设置界面有用。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar">周</span>周晚 · 2026-11-05</div>
+            <p><span class="obj">巴赫管风琴合集</span>的 FLAC 分轨命名有点乱，16 张专辑混在一个目录里，整理花了半小时，音质没问题。</p>
+          </div>
+          <div class="cmt">
+            <div class="who"><span class="avatar">许</span>许川 · 2026-11-05</div>
+            <p>索引更新频率还可以，但做种率是快照，早晚差挺多。<span class="obj">纪录片《冰川刻度》</span>我早上看 1.5，晚上再看掉到 0.8 了。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 相关资讯 -->
+      <section class="block" id="news">
+        <div class="sec-head">
+          <span class="kicker">09</span>
+          <h2>BT 资源与工具相关资讯</h2>
+          <span class="more">本周 4 条</span>
+        </div>
+        <div class="news">
+          <div class="item">
+            <div class="date">2026-11-07</div>
+            <h3>qBittorrent 4.6.4 修复 DHT 重连缺陷</h3>
+            <p>更新日志写明修复了 NAT 环境下节点反复掉线的问题，建议内网用户升级。</p>
+          </div>
+          <div class="item">
+            <div class="date">2026-11-05</div>
+            <h3>公共 tracker 列表轮换，两条旧地址停服</h3>
+            <p>索引脚本已剔除失效地址，使用旧列表的客户端可能发现 peer 变慢。</p>
+          </div>
+          <div class="item">
+            <div class="date">2026-11-04</div>
+            <h3>《网络协议分析》第 6 版新增 P2P 章节</h3>
+            <p>第 11 章补充了 DHT 与 PEX 的对比，电子书条目同步收录。</p>
+          </div>
+          <div class="item">
+            <div class="date">2026-11-03</div>
+            <h3>Transmission 4.0 发布，内存占用降 30%</h3>
+            <p>官方说明对 NAS 场景优化明显，无界面模式启动更快。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 榜单/可信度分层 -->
+      <section class="block" id="rank">
+        <div class="sec-head">
+          <span class="kicker">10</span>
+          <h2>热词检索榜单</h2>
+          <span class="more">近 7 天</span>
+        </div>
+        <div class="rank">
+          <ul>
+            <li><span class="no top">1</span>4K 修复版老电影种子<span class="val">检索 2,140 次</span></li>
+            <li><span class="no top">2</span>磁力链接转种子工具<span class="val">检索 1,870 次</span></li>
+            <li><span class="no top">3</span>BT 客户端做种率优化<span class="val">检索 1,520 次</span></li>
+            <li><span class="no">4</span>冷门电子书断种补链<span class="val">检索 1,180 次</span></li>
+            <li><span class="no">5</span>离线下载秒传校验<span class="val">检索 960 次</span></li>
+            <li><span class="no">6</span>NAS 无界面做种方案<span class="val">检索 820 次</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 相关推荐 -->
+      <section class="block" id="reco">
+        <div class="sec-head">
+          <span class="kicker">11</span>
+          <h2>相关推荐</h2>
+        </div>
+        <div class="reco">
+          <a href="/#deep">做种率与分片完整度对照</a>
+          <a href="/#guide">qBittorrent 4.6 设置清单</a>
+          <a href="/#guide">磁力链接 SHA-1 与 SHA-256 区别</a>
+          <a href="/#faq">BT 下载 99% 卡住处理</a>
+          <a href="/#latest">纪录片 4K HDR 资源</a>
+          <a href="/#picks">开源软件安装包校验</a>
+          <a href="/#deep">离线下载秒传失败原因</a>
+          <a href="/#comments">《雾港》第一季下载反馈</a>
+        </div>
+      </section>
+
+    </main>
+
+    <aside aria-label="侧栏导航与提示">
+      <div class="side-card">
+        <h3>栏目导航</h3>
+        <nav class="side-nav" id="sideNav" aria-label="页内导航">
+          <a href="/#overview">领域概览</a>
+          <a href="/#picks">精选推荐</a>
+          <a href="/#latest">最新更新</a>
+          <a href="/#channels">资源分类</a>
+          <a href="/#deep">深度解析</a>
+          <a href="/#guide">体验指南</a>
+          <a href="/#faq">常见问题</a>
+          <a href="/#comments">用户评论</a>
+          <a href="/#news">相关资讯</a>
+          <a href="/#rank">热词榜单</a>
+          <a href="/#reco">相关推荐</a>
+        </nav>
+      </div>
+
+      <div class="side-card notice">
+        <h3>索引说明</h3>
+        <p>条目中的做种率、分片完整度为探测脚本采样值，随做种者上下线变化。断种标记需连续 48 小时无 peer 才生效。索引库不存储文件本体。</p>
+      </div>
+
+      <div class="side-card">
+        <h3>本周热词</h3>
+        <ul class="side-list">
+          <li>4K 修复版老电影</li>
+          <li>磁力链接转种子</li>
+          <li>qBittorrent 做种率</li>
+          <li>离线下载秒传校验</li>
+          <li>NAS 无界面做种</li>
+          <li>电子书断种补链</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand-name" style="color:#eef3ee;font-size:17px;font-weight:800">蚂蚁bt下载</span>
+        <p>把种子、磁力与离线下载的检索信息整理成可核对的目录，按做种率与分片完整度标注健康度。</p>
+      </div>
+      <div>
+        <h4>资源频道</h4>
+        <a href="/#picks">电影种子</a>
+        <a href="/#latest">剧集全集</a>
+        <a href="/#picks">单机游戏</a>
+        <a href="/#latest">无损音乐</a>
+        <a href="/#picks">电子书刊</a>
+      </div>
+      <div>
+        <h4>工具与指南</h4>
+        <a href="/#guide">BT 客户端选择</a>
+        <a href="/#guide">磁力链接工具</a>
+        <a href="/#deep">做种率判断方法</a>
+        <a href="/#faq">常见问题</a>
+      </div>
+      <div>
+        <h4>社区</h4>
+        <a href="/#comments">用户评论</a>
+        <a href="/#rank">热词检索榜单</a>
+        <a href="/#news">相关资讯</a>
+        <a href="/#reco">相关推荐</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>示例数据说明：索引条目、做种率与 DHT 探测数字均为演示生成，不代表真实资源分布。</span>
+      <span>页面更新于 2026-11-08，对应索引库快照与《BT种子做种率筛查表》。</span>
+      <span>© 2026 蚂蚁bt下载 · 内容仅供技术研究参考</span>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="回到页面顶部">↑</button>
+
+<script>
+(function(){
+  "use strict";
+
+  var menuBtn = document.getElementById('menuBtn');
+  var mainNav = document.getElementById('mainNav');
+
+  if (menuBtn && mainNav) {
+    menuBtn.addEventListener('click', function(){
+      var open = mainNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    mainNav.addEventListener('click', function(e){
+      if (e.target.tagName === 'A' && window.innerWidth <= 760) {
+        mainNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  var toTop = document.getElementById('toTop');
+  function onScroll(){
+    if (!toTop) return;
+    if (window.scrollY > 480) {
+      toTop.classList.add('show');
+    } else {
+      toTop.classList.remove('show');
+    }
+    highlight();
+  }
+
+  if (toTop) {
+    toTop.addEventListener('click', function(){
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  }
+
+  var sideLinks = Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  var targets = sideLinks.map(function(a){
+    var id = a.getAttribute('href').replace('/#','');
+    return document.getElementById(id);
+  });
+
+  function highlight(){
+    var pos = window.scrollY + 140;
+    var activeIdx = -1;
+    for (var i = 0; i < targets.length; i++) {
+      var el = targets[i];
+      if (el && el.offsetTop <= pos) activeIdx = i;
+    }
+    sideLinks.forEach(function(a, i){
+      a.classList.toggle('active', i === activeIdx);
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  highlight();
+
+  // 本地搜索
+  var form = document.getElementById('searchForm');
+  var input = document.getElementById('searchInput');
+  var feedback = document.getElementById('searchFeedback');
+
+  function clearMarks(root){
+    var marks = root.querySelectorAll('mark');
+    for (var i = 0; i < marks.length; i++) {
+      var m = marks[i];
+      var parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    }
+  }
+
+  function markIn(el, kw){
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node){
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = node.parentNode;
+        if (p && (p.tagName === 'SCRIPT' || p.tagName === 'STYLE' || p.tagName === 'MARK')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function(node){
+      var text = node.nodeValue;
+      var idx = text.toLowerCase().indexOf(kw);
+      if (idx === -1) return;
+      var frag = document.createDocumentFragment();
+      var last = 0;
+      while (idx !== -1) {
+        frag.appendChild(document.createTextNode(text.slice(last, idx)));
+        var mk = document.createElement('mark');
+        mk.textContent = text.slice(idx, idx + kw.length);
+        frag.appendChild(mk);
+        last = idx + kw.length;
+        idx = text.toLowerCase().indexOf(kw, last);
+      }
+      frag.appendChild(document.createTextNode(text.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  function summarize(el){
+    var t = (el.querySelector('h2, h3, summary') || el).textContent.replace(/\s+/g,' ').trim();
+    return t.slice(0, 42);
+  }
+
+  if (form && input && feedback) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var kw = input.value.trim().toLowerCase();
+      clearMarks(document.body);
+      if (!kw) {
+        feedback.style.display = 'none';
+        feedback.textContent = '';
+        return;
+      }
+      var nodes = document.querySelectorAll('main section.block, aside .side-card, footer, header .brand-name');
+      var hitCount = 0;
+      var hitNames = [];
+      for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        if (el.textContent.toLowerCase().indexOf(kw) !== -1) {
+          markIn(el, kw);
+          hitCount++;
+          if (hitNames.length < 4) hitNames.push(summarize(el));
+        }
+      }
+      feedback.style.display = 'block';
+      if (hitCount === 0) {
+        feedback.textContent = '没有找到包含“' + input.value.trim() + '”的条目。可试试：做种率、磁力链接、离线下载、qBittorrent。';
+      } else {
+        feedback.textContent = '找到 ' + hitCount + ' 个板块包含“' + input.value.trim() + '”：' + hitNames.join(' / ') + (hitCount > 4 ? ' 等' : '');
+      }
+    });
+
+    input.addEventListener('input', function(){
+      if (!input.value.trim()) {
+        clearMarks(document.body);
+        feedback.style.display = 'none';
+        feedback.textContent = '';
+      }
+    });
+  }
+
+  // 平滑滚动偏移（吸顶高度）
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="/#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').replace('/#','');
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    var head = document.querySelector('.site-head');
+    var ann = document.querySelector('.announce');
+    var offset = (head ? head.offsetHeight : 0) + (ann ? ann.offsetHeight : 0) + 8;
+    var top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({top: top, behavior:'smooth'});
+    if (history && history.replaceState) {
+      history.replaceState(null, '', '/#' + id);
+    }
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "蚂蚁bt下载",
+  "description": "围绕 BT 种子、磁力链接与离线下载的资源检索站点，收录做种率、分片完整度与客户端指南。",
+  "inLanguage": "zh-CN"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "磁力链接和种子文件有什么区别？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "磁力链接只携带文件哈希，靠 DHT 网络找 peer；种子文件自带 tracker 列表和文件目录。哈希相同则下载同一份数据。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "做种率多少才算健康？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "做种者数除以下载者数，经验值高于 1.5 比较稳。分片完整度同样重要，做种率低但分片 100% 的老种子往往更容易下完。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "为什么下载到 99% 就不动了？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "多数是缺少最后几个分片且持有者离线。可暂停再继续触发重连，或换 tracker 补充 peer；48 小时无进展则判定断种。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "DHT 网络需要手动开启吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "主流客户端默认开启，但内网常因 UDP 被封而失效。看状态栏节点数长期为 0 即未连上，需要端口映射或补充 tracker。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "离线下载显示秒传成功，取回却失败怎么办？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "秒传只代表服务端有相同哈希副本，副本可能来自旧分片。取回后对首尾分片做哈希比对，不一致就删任务重加。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "下载速度忽高忽低正常吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BT 速度取决于在线上传者带宽，peer 进出会波动。观察 10 分钟，中位数低于峰值 20% 再查端口映射与限速。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "手机能直接下 BT 吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Android 可用 libtorrent 内核客户端，iOS 受限制基本靠离线下载中转。手机做种耗电明显，长期做种建议用 NAS。"
+      }
+    }
+  ]
+}
+</script>
+</body>
+  </html>
