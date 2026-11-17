@@ -1,0 +1,1153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>51hlw下载-安卓资源安装包版本与安装指南</title>
+<meta name="description" content="51hlw下载提供安卓安装包版本演进、资源分类索引与安装排错方法，梳理2026年10月至11月各版本发布记录、包体大小与签名差异，附体验步骤、常见报错问答与用户实测反馈，帮助判断适合的安装包类型。">
+<meta name="keywords" content="51hlw下载">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23133b52'/%3E%3Cpath d='M20 42V22h8l4 10 4-10h8v20h-6V31l-3 8h-6l-3-8v11z' fill='%23f2b134'/%3E%3C/svg%3E">
+<style>
+:root{
+  --navy:#133b52;
+  --navy-deep:#0b2838;
+  --amber:#f2b134;
+  --amber-soft:#fdf3dc;
+  --teal:#1f7a6d;
+  --teal-soft:#e3f2ef;
+  --ink:#1d2a32;
+  --ink-2:#42545e;
+  --ink-3:#6d7f88;
+  --line:#dde5e9;
+  --bg:#f6f8f9;
+  --card:#ffffff;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --shadow-1:0 1px 2px rgba(19,59,82,.06),0 4px 14px rgba(19,59,82,.06);
+  --shadow-2:0 6px 22px rgba(19,59,82,.12);
+  --sp-1:6px;--sp-2:12px;--sp-3:18px;--sp-4:26px;--sp-5:38px;--sp-6:56px;
+  --fs-xs:12px;--fs-s:13.5px;--fs-base:15.5px;--fs-m:17px;--fs-l:21px;--fs-xl:27px;--fs-2xl:34px;
+  --ann-h:40px;--head-h:62px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--ann-h) + var(--head-h) + 10px)}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  font-size:var(--fs-base);line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--navy);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700;color:var(--navy-deep)}
+p{margin:0 0 var(--sp-2)}
+ul,ol{margin:0 0 var(--sp-2);padding-left:1.25em}
+li{margin-bottom:6px}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:4px}
+
+/* ---------- 吸顶公告条 ---------- */
+.announce{
+  position:sticky;top:0;z-index:60;background:var(--navy-deep);color:#dce8ee;
+  height:var(--ann-h);display:flex;align-items:center;
+  font-size:var(--fs-s);
+}
+.announce .wrap{display:flex;align-items:center;gap:10px;width:100%;overflow:hidden}
+.announce .tag{
+  flex:none;background:var(--amber);color:#3a2a00;font-weight:700;
+  padding:1px 8px;border-radius:99px;font-size:var(--fs-xs);letter-spacing:.5px;
+}
+.announce .txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cfe0e8}
+.announce .txt b{color:#fff;font-weight:600}
+.announce .close{
+  margin-left:auto;flex:none;background:transparent;border:1px solid #4a6573;color:#cfe0e8;
+  font-size:var(--fs-xs);border-radius:99px;padding:2px 10px;cursor:pointer;line-height:1.6;
+}
+.announce .close:hover{background:#1c4459}
+
+/* ---------- 页头 ---------- */
+.header{
+  position:sticky;top:var(--ann-h);z-index:55;background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);
+}
+.header .wrap{height:var(--head-h);display:flex;align-items:center;gap:var(--sp-3)}
+.brand{display:flex;align-items:center;gap:9px;flex:none}
+.brand-mark{width:34px;height:34px;flex:none}
+.brand-name{font-size:var(--fs-m);font-weight:800;letter-spacing:.5px;color:var(--navy)}
+.nav{display:flex;gap:2px;margin-left:var(--sp-3);flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{
+  padding:7px 11px;border-radius:var(--radius-s);color:var(--ink-2);
+  font-size:var(--fs-s);white-space:nowrap;
+}
+.nav a:hover{background:var(--amber-soft);color:var(--navy);text-decoration:none}
+.head-tools{margin-left:auto;display:flex;align-items:center;gap:8px;flex:none}
+.search{position:relative;display:flex;align-items:center}
+.search input{
+  width:186px;border:1px solid var(--line);background:#fff;border-radius:99px;
+  padding:6px 32px 6px 12px;font-size:var(--fs-s);color:var(--ink);
+  font-family:inherit;transition:border-color .15s,width .15s;
+}
+.search input:focus{outline:none;border-color:var(--teal);width:216px}
+.search .ico{position:absolute;right:9px;pointer-events:none;opacity:.5}
+.search-feedback{
+  position:absolute;top:calc(100% + 6px);right:0;width:250px;background:#fff;
+  border:1px solid var(--line);border-radius:var(--radius-m);box-shadow:var(--shadow-2);
+  padding:8px;font-size:var(--fs-s);display:none;z-index:70;
+}
+.search-feedback.show{display:block}
+.search-feedback .hit{display:block;padding:5px 8px;border-radius:var(--radius-s);color:var(--ink-2)}
+.search-feedback .hit:hover{background:var(--teal-soft);text-decoration:none}
+.search-feedback .none{color:#a14532;padding:6px 8px}
+.btn-menu{
+  display:none;background:#fff;border:1px solid var(--line);border-radius:var(--radius-s);
+  padding:6px 9px;cursor:pointer;color:var(--navy);align-items:center;gap:6px;font-size:var(--fs-s);
+  font-family:inherit;
+}
+.btn-menu svg{display:block}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+
+/* ---------- 首屏 ---------- */
+.hero{
+  position:relative;overflow:hidden;color:#eaf2f6;
+  background:linear-gradient(140deg,#0b2838 0%,#133b52 46%,#1b5a63 100%);
+}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:var(--sp-5);padding:var(--sp-6) 0}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-xs);letter-spacing:2px;
+  color:var(--amber);border:1px solid rgba(242,177,52,.45);border-radius:99px;padding:3px 12px;margin-bottom:var(--sp-3);
+}
+.hero h1{font-size:var(--fs-2xl);color:#fff;margin-bottom:var(--sp-3);letter-spacing:.5px}
+.hero p.lead{color:#c6d9e2;font-size:var(--fs-m);max-width:34em;margin-bottom:var(--sp-4)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:var(--sp-4)}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:99px;
+  font-size:var(--fs-s);font-weight:600;border:1px solid transparent;transition:transform .15s,background .15s;
+}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
+.btn-primary{background:var(--amber);color:#372700}
+.btn-primary:hover{background:#ffc44f}
+.btn-ghost{border-color:rgba(255,255,255,.35);color:#eaf2f6}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.hero-stats{display:flex;gap:var(--sp-4);flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.16);padding-top:var(--sp-3)}
+.hero-stats div{min-width:96px}
+.hero-stats .num{font-size:var(--fs-l);font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.hero-stats .lbl{font-size:var(--fs-xs);color:#9fb9c5}
+.hero-art{position:relative;min-height:290px}
+.hero-art svg{width:100%;height:100%;display:block}
+.hero-blob{position:absolute;width:340px;height:340px;right:-80px;top:-90px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,rgba(242,177,52,.22),transparent 68%);pointer-events:none}
+
+/* ---------- 布局 ---------- */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 306px;gap:var(--sp-4);padding:var(--sp-5) 0}
+.main-col{min-width:0}
+.side-col{min-width:0}
+section.block{margin-bottom:var(--sp-5);scroll-margin-top:120px}
+.block-head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sp-2);margin-bottom:var(--sp-3);flex-wrap:wrap}
+.block-head h2{font-size:var(--fs-l);position:relative;padding-left:13px}
+.block-head h2::before{
+  content:"";position:absolute;left:0;top:.22em;bottom:.22em;width:4px;border-radius:2px;
+  background:linear-gradient(var(--amber),var(--teal));
+}
+.block-head .note{font-size:var(--fs-xs);color:var(--ink-3);max-width:30em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);box-shadow:var(--shadow-1)}
+
+/* ---------- 频道索引 ---------- */
+.channels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.channels a{
+  display:flex;flex-direction:column;gap:3px;padding:12px 13px;border-radius:var(--radius-m);
+  background:#fff;border:1px solid var(--line);transition:border-color .15s,transform .15s;
+}
+.channels a:hover{border-color:var(--teal);transform:translateY(-2px);text-decoration:none}
+.channels .cname{font-weight:700;color:var(--navy);font-size:var(--fs-s)}
+.channels .cmeta{font-size:var(--fs-xs);color:var(--ink-3)}
+
+/* ---------- 精选 ---------- */
+.featured{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:var(--sp-2)}
+.feature-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:var(--shadow-1);transition:transform .15s;
+}
+.feature-card:hover{transform:translateY(-3px)}
+.feature-card img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.feature-card .fc-body{padding:13px 15px 15px;display:flex;flex-direction:column;gap:6px;flex:1}
+.fc-kicker{font-size:var(--fs-xs);color:var(--teal);font-weight:700;letter-spacing:.5px}
+.feature-card h3{font-size:var(--fs-base)}
+.feature-card p{font-size:var(--fs-s);color:var(--ink-2);margin:0}
+.fc-meta{margin-top:auto;font-size:var(--fs-xs);color:var(--ink-3);display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- 最新更新（紧凑列表） ---------- */
+.updates{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden;box-shadow:var(--shadow-1)}
+.update-row{
+  display:grid;grid-template-columns:82px 1fr auto;gap:var(--sp-2);align-items:baseline;
+  padding:11px 16px;border-bottom:1px dashed var(--line);
+}
+.update-row:last-child{border-bottom:0}
+.update-row time{font-size:var(--fs-xs);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.update-row .u-title{font-size:var(--fs-s);color:var(--ink)}
+.update-row .u-title b{color:var(--navy)}
+.update-row .u-tag{font-size:var(--fs-xs);color:var(--teal);background:var(--teal-soft);padding:1px 8px;border-radius:99px;white-space:nowrap}
+
+/* ---------- 分类入口 ---------- */
+.cat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-2)}
+.cat-item{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px;
+  display:flex;flex-direction:column;gap:5px;
+}
+.cat-item .ci-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cat-item h3{font-size:var(--fs-base)}
+.cat-item .count{font-size:var(--fs-xs);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.cat-item p{font-size:var(--fs-s);color:var(--ink-2);margin:0}
+.cat-item .kw{font-size:var(--fs-xs);color:var(--navy);background:var(--amber-soft);border-radius:99px;padding:1px 9px;align-self:flex-start}
+
+/* ---------- 深度解析 ---------- */
+.deep{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:var(--sp-4) var(--sp-4) var(--sp-3);box-shadow:var(--shadow-1)}
+.deep h2{font-size:var(--fs-l);margin-bottom:var(--sp-2)}
+.deep .lede{color:var(--ink-2);border-left:3px solid var(--amber);padding-left:12px;margin-bottom:var(--sp-3);font-size:var(--fs-s)}
+.deep h3{font-size:var(--fs-m);margin:var(--sp-4) 0 var(--sp-2)}
+.deep h3:first-of-type{margin-top:0}
+.deep p{font-size:var(--fs-s);color:var(--ink-2)}
+.deep p b{color:var(--ink)}
+.deeptable{width:100%;border-collapse:collapse;font-size:var(--fs-s);margin:var(--sp-2) 0 var(--sp-3)}
+.deeptable th,.deeptable td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+.deeptable th{background:#f2f6f8;color:var(--navy);font-weight:700;font-size:var(--fs-xs)}
+.deeptable td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.verdict{
+  background:var(--amber-soft);border:1px solid #f0d9a4;border-radius:var(--radius-m);
+  padding:12px 15px;font-size:var(--fs-s);color:#4a3608;margin:var(--sp-2) 0;
+}
+.verdict b{color:#31230a}
+.checklist{list-style:none;padding:0;margin:var(--sp-2) 0}
+.checklist li{
+  position:relative;padding:6px 0 6px 27px;font-size:var(--fs-s);color:var(--ink-2);border-bottom:1px dashed var(--line);
+}
+.checklist li:last-child{border-bottom:0}
+.checklist li::before{
+  content:"✓";position:absolute;left:2px;top:6px;width:18px;height:18px;line-height:18px;text-align:center;
+  background:var(--teal-soft);color:var(--teal);border-radius:50%;font-size:11px;font-weight:800;
+}
+.factline{font-size:var(--fs-xs);color:var(--ink-3);margin-top:var(--sp-2)}
+
+/* ---------- 体验指南（编号步骤） ---------- */
+.steps{counter-reset:step;display:grid;gap:12px}
+.step{
+  display:grid;grid-template-columns:44px 1fr;gap:var(--sp-2);background:#fff;
+  border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 16px;
+}
+.step::before{
+  counter-increment:step;content:counter(step,decimal-leading-zero);
+  width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--navy);color:var(--amber);font-weight:800;font-size:var(--fs-m);font-variant-numeric:tabular-nums;
+}
+.step h3{font-size:var(--fs-base);margin-bottom:3px}
+.step p{font-size:var(--fs-s);color:var(--ink-2);margin:0}
+
+/* ---------- FAQ ---------- */
+.faq{display:grid;gap:10px}
+.faq details{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;
+}
+.faq summary{
+  cursor:pointer;padding:13px 46px 13px 16px;font-size:var(--fs-s);font-weight:700;color:var(--navy);
+  list-style:none;position:relative;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  font-size:19px;color:var(--teal);font-weight:400;
+}
+.faq details[open] summary::after{content:"–"}
+.faq details[open] summary{background:#f2f7f6}
+.faq .ans{padding:2px 16px 15px;font-size:var(--fs-s);color:var(--ink-2)}
+.faq .ans p:last-child{margin-bottom:0}
+
+/* ---------- 评论 ---------- */
+.comments{display:grid;gap:12px}
+.comment{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-m);padding:13px 15px;
+}
+.comment .c-head{display:flex;align-items:center;gap:9px;margin-bottom:6px;flex-wrap:wrap}
+.avatar{
+  width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  font-size:var(--fs-xs);font-weight:800;color:#fff;background:var(--navy);
+}
+.comment .c-name{font-size:var(--fs-s);font-weight:700;color:var(--navy)}
+.comment .c-time{font-size:var(--fs-xs);color:var(--ink-3);margin-left:auto}
+.comment .c-body{font-size:var(--fs-s);color:var(--ink-2);margin:0}
+.comment .c-ref{display:inline-block;font-size:var(--fs-xs);color:var(--teal);background:var(--teal-soft);border-radius:var(--radius-s);padding:0 7px;margin-top:6px}
+
+/* ---------- 资讯 ---------- */
+.news{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-2)}
+.news-item{background:#fff;border:1px solid var(--line);border-radius:var(--radius-m);padding:13px 15px;display:flex;flex-direction:column;gap:5px}
+.news-item time{font-size:var(--fs-xs);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.news-item h3{font-size:var(--fs-base)}
+.news-item p{font-size:var(--fs-s);color:var(--ink-2);margin:0}
+
+/* ---------- 标签推荐 ---------- */
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags a{
+  font-size:var(--fs-s);padding:5px 13px;border-radius:99px;background:#fff;border:1px solid var(--line);
+  color:var(--ink-2);transition:all .15s;
+}
+.tags a:hover{background:var(--navy);color:#fff;border-color:var(--navy);text-decoration:none}
+
+/* ---------- 时间线 ---------- */
+.timeline{position:relative;margin:0;padding:0 0 0 22px;list-style:none}
+.timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--amber),var(--teal))}
+.timeline li{position:relative;padding:0 0 var(--sp-3) 4px;font-size:var(--fs-s);color:var(--ink-2)}
+.timeline li::before{
+  content:"";position:absolute;left:-22px;top:7px;width:12px;height:12px;border-radius:50%;
+  background:#fff;border:3px solid var(--teal);
+}
+.timeline b{display:block;color:var(--navy);font-size:var(--fs-s)}
+.timeline time{font-size:var(--fs-xs);color:var(--ink-3)}
+
+/* ---------- 侧栏 ---------- */
+.side-box{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:15px 16px;margin-bottom:var(--sp-3);box-shadow:var(--shadow-1)}
+.side-box h2{font-size:var(--fs-base);margin-bottom:var(--sp-2);padding-bottom:8px;border-bottom:1px solid var(--line)}
+.side-nav{display:grid;gap:2px}
+.side-nav a{font-size:var(--fs-s);color:var(--ink-2);padding:6px 9px;border-radius:var(--radius-s);border-left:2px solid transparent}
+.side-nav a:hover{background:var(--amber-soft);text-decoration:none}
+.side-nav a.active{background:var(--teal-soft);color:var(--navy);font-weight:700;border-left-color:var(--teal)}
+.side-list{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.side-list li{font-size:var(--fs-s);color:var(--ink-2);display:flex;gap:9px;align-items:baseline;margin:0}
+.side-list .rn{flex:none;width:20px;height:20px;border-radius:5px;background:#f0f4f6;color:var(--ink-3);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.side-list li:nth-child(-n+3) .rn{background:var(--amber);color:#3a2a00}
+.side-profile{font-size:var(--fs-s);color:var(--ink-2)}
+.side-profile .row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--line);gap:10px}
+.side-profile .row:last-child{border-bottom:0}
+.side-profile .k{color:var(--ink-3);font-size:var(--fs-xs);flex:none}
+
+/* ---------- 页尾 ---------- */
+.footer{background:var(--navy-deep);color:#a9c2ce;margin-top:var(--sp-5);padding:var(--sp-5) 0 var(--sp-3);font-size:var(--fs-s)}
+.footer .fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:var(--sp-4);padding-bottom:var(--sp-4);border-bottom:1px solid #1e4a5e}
+.footer .brand{color:#fff;gap:10px;margin-bottom:10px}
+.footer .brand-name{color:#fff}
+.footer .f-tag{font-size:var(--fs-s);color:#9fb9c5;max-width:24em}
+.footer h3{color:#fff;font-size:var(--fs-s);margin-bottom:10px}
+.footer ul{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.footer ul a{color:#a9c2ce;font-size:var(--fs-s)}
+.footer ul a:hover{color:var(--amber);text-decoration:none}
+.footer .f-note{font-size:var(--fs-xs);color:#7e9aa7;margin-top:10px;line-height:1.7}
+.footer .f-bottom{display:flex;justify-content:space-between;gap:var(--sp-2);padding-top:var(--sp-3);font-size:var(--fs-xs);color:#7e9aa7;flex-wrap:wrap}
+
+/* ---------- 回到顶部 ---------- */
+.to-top{
+  position:fixed;right:22px;bottom:26px;z-index:80;width:44px;height:44px;border-radius:50%;
+  background:var(--navy);color:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--shadow-2);opacity:0;visibility:hidden;transform:translateY(10px);transition:all .2s;
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{background:var(--teal)}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:1024px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .side-col{order:2}
+  .main-col{order:1}
+  .hero .wrap{grid-template-columns:1fr;gap:var(--sp-3);padding:var(--sp-5) 0}
+  .hero-art{min-height:200px;max-width:420px}
+  .channels{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .featured{grid-template-columns:1fr 1fr}
+  .featured .feature-card:first-child{grid-column:1/-1}
+  .footer .fgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:820px){
+  .nav{
+    position:absolute;left:0;right:0;top:100%;background:#fff;border-bottom:1px solid var(--line);
+    flex-direction:column;padding:8px 16px 14px;gap:2px;display:none;box-shadow:var(--shadow-2);
+  }
+  .nav.open{display:flex}
+  .nav a{padding:9px 10px}
+  .btn-menu{display:inline-flex}
+  .head-tools .search input{width:140px}
+  .head-tools .search input:focus{width:160px}
+  .header .wrap{gap:10px;position:relative}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .news{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  :root{--fs-2xl:27px;--fs-xl:23px;--fs-l:19px}
+  .wrap{width:calc(100% - 28px)}
+  .channels{grid-template-columns:1fr 1fr}
+  .cat-grid{grid-template-columns:1fr}
+  .featured{grid-template-columns:1fr}
+  .update-row{grid-template-columns:70px 1fr;gap:8px}
+  .update-row .u-tag{display:none}
+  .footer .fgrid{grid-template-columns:1fr}
+  .deep{padding:var(--sp-3)}
+  .hero-stats{gap:var(--sp-3)}
+  .step{grid-template-columns:36px 1fr}
+  .step::before{width:36px;height:36px;font-size:var(--fs-base)}
+  .search input{width:112px}
+  .search input:focus{width:132px}
+  .to-top{right:14px;bottom:16px;width:40px;height:40px}
+  .deeptable{font-size:var(--fs-xs)}
+  .deeptable th,.deeptable td{padding:6px 7px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .feature-card:hover,.channels a:hover,.btn:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<!-- 吸顶公告条 -->
+<div class="announce" id="announce">
+  <div class="wrap">
+    <span class="tag">更新</span>
+    <span class="txt"><b>51hlw下载</b> 2026-11-06 发布 3.8.2 安装包（62.4 MB），修复 Android 15 分区存储下资源解压失败；11-03 起旧版 3.7.9 停止拉取增量包。</span>
+    <button class="close" id="annClose" type="button" aria-label="关闭公告条">收起</button>
+  </div>
+</div>
+
+<!-- 吸顶页头 -->
+<header class="header">
+  <div class="wrap">
+    <a class="brand" href="/#top" aria-label="51hlw下载 首页">
+      <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#133b52"/>
+        <path d="M18 44V21h7l7 12 7-12h7v23h-6V32l-5 8h-6l-5-8v12z" fill="#f2b134"/>
+        <circle cx="46" cy="18" r="5" fill="#1f7a6d"/>
+      </svg>
+      <span class="brand-name">51hlw下载</span>
+    </a>
+    <nav class="nav" id="siteNav" aria-label="主题导航">
+      <a href="/#overview">领域概览</a>
+      <a href="/#featured">精选内容</a>
+      <a href="/#updates">最新更新</a>
+      <a href="/#channels">频道入口</a>
+      <a href="/#deep">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问题</a>
+      <a href="/#comments">用户评论</a>
+    </nav>
+    <div class="head-tools">
+      <div class="search" role="search">
+        <input type="search" id="siteSearch" placeholder="搜索版本或资源类型" aria-label="站内搜索" autocomplete="off">
+        <span class="ico" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6d7f88" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        </span>
+        <div class="search-feedback" id="searchFeedback" role="status" aria-live="polite"></div>
+      </div>
+      <button class="btn-menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="siteNav">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        菜单
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 主题首屏 -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <span class="hero-blob" aria-hidden="true"></span>
+    <div class="wrap">
+      <div>
+        <span class="hero-eyebrow">安卓安装包 · 资源索引</span>
+        <h1 id="heroTitle">51hlw下载</h1>
+        <p class="lead">按版本号、包体大小和签名类型整理安卓资源安装包，给出每个版本的发布日期、适配系统与已知问题，先看差异再决定装哪个。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/#updates">查看 11 月版本记录</a>
+          <a class="btn btn-ghost" href="/#guide">安装步骤</a>
+        </div>
+        <div class="hero-stats">
+          <div><div class="num">42</div><div class="lbl">在架安装包</div></div>
+          <div><div class="num">3.8.2</div><div class="lbl">当前稳定版</div></div>
+          <div><div class="num">62.4 MB</div><div class="lbl">标准包体</div></div>
+          <div><div class="num">11-06</div><div class="lbl">最近一次发布</div></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 380 300" role="img">
+          <defs>
+            <linearGradient id="hg1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f2b134" stop-opacity=".95"/>
+              <stop offset="1" stop-color="#1f7a6d" stop-opacity=".85"/>
+            </linearGradient>
+          </defs>
+          <rect x="30" y="30" width="150" height="240" rx="18" fill="#0f3447" stroke="#2a5b70"/>
+          <rect x="44" y="52" width="122" height="14" rx="7" fill="#1e5064"/>
+          <rect x="44" y="76" width="92" height="10" rx="5" fill="#1e5064"/>
+          <rect x="44" y="102" width="122" height="52" rx="8" fill="url(#hg1)"/>
+          <rect x="44" y="166" width="58" height="9" rx="4.5" fill="#2a5b70"/>
+          <rect x="44" y="184" width="108" height="9" rx="4.5" fill="#2a5b70"/>
+          <rect x="44" y="202" width="84" height="9" rx="4.5" fill="#2a5b70"/>
+          <rect x="44" y="232" width="122" height="24" rx="12" fill="#f2b134"/>
+          <rect x="210" y="66" width="140" height="88" rx="12" fill="#ffffff" fill-opacity=".08" stroke="#3a7189"/>
+          <rect x="224" y="82" width="70" height="9" rx="4.5" fill="#9fc0cc"/>
+          <rect x="224" y="100" width="104" height="7" rx="3.5" fill="#5a8b9e"/>
+          <rect x="224" y="116" width="88" height="7" rx="3.5" fill="#5a8b9e"/>
+          <rect x="224" y="132" width="46" height="9" rx="4.5" fill="#f2b134"/>
+          <rect x="210" y="172" width="140" height="88" rx="12" fill="#ffffff" fill-opacity=".08" stroke="#3a7189"/>
+          <circle cx="238" cy="200" r="13" fill="#1f7a6d"/>
+          <path d="M232 200l4 4 8-9" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <rect x="262" y="192" width="70" height="8" rx="4" fill="#9fc0cc"/>
+          <rect x="262" y="208" width="54" height="7" rx="3.5" fill="#5a8b9e"/>
+          <rect x="224" y="232" width="112" height="8" rx="4" fill="#3a7189"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap layout">
+    <div class="main-col">
+
+      <!-- 领域概览 -->
+      <section class="block" id="overview" aria-labelledby="ovTitle">
+        <div class="block-head">
+          <h2 id="ovTitle">安卓安装包领域概览</h2>
+          <span class="note">按文件属性和使用场景理解安装包，比只记版本号更实用</span>
+        </div>
+        <div class="card" style="padding:18px 20px">
+          <p>安卓安装包以 APK 为载体。一个包里同时装着代码、资源、签名三部分：代码决定功能，资源影响包体大小，签名决定能否覆盖安装。同一应用在不同渠道会打出不同签名的包，小米、华为、OPPO 三家的渠道包签名各不一致，跨渠道直接覆盖会提示「应用签名不一致」。</p>
+          <p>包体大小主要由资源文件决定。图片未压缩、内置多语言、打包了整套音效视频素材的安装包常见 120 MB 以上；纯功能包通常落在 40—70 MB。51hlw下载 收录的标准包以 62.4 MB 为上限，另有精简包 38.7 MB 与完整资源包 148.2 MB 两档。</p>
+          <p>适配关系看两处：最低支持的 Android 版本写在清单文件的 minSdkVersion 里，目标版本写在 targetSdkVersion 里。2026 年 10 月之后新发布的包普遍把最低版本提到 Android 8.0，Android 7.0 设备只能回落旧版本。</p>
+        </div>
+      </section>
+
+      <!-- 精选内容推荐 -->
+      <section class="block" id="featured" aria-labelledby="ftTitle">
+        <div class="block-head">
+          <h2 id="ftTitle">精选内容推荐</h2>
+          <span class="note">按近期维护频率与实测反馈挑选</span>
+        </div>
+        <div class="featured">
+          <article class="feature-card">
+            <img src="https://picsum.photos/seed/51hlw-android-pkg/640/360" width="640" height="360" loading="lazy" alt="安卓安装包版本列表的界面截图示例" style="object-fit:cover">
+            <div class="fc-body">
+              <span class="fc-kicker">版本档案</span>
+              <h3>3.8.2 标准包：62.4 MB，适配 Android 8.0 至 15</h3>
+              <p>10 月 31 日校准签名，11 月 6 日重新打包。相比 3.8.1 主要改动是资源解压逻辑，其余模块未动。</p>
+              <div class="fc-meta"><span>2026-11-06</span><span>签名类型 v2</span></div>
+            </div>
+          </article>
+          <article class="feature-card">
+            <img src="https://picsum.photos/seed/51hlw-lite-pack/640/360" width="640" height="360" loading="lazy" alt="精简安装包体积对比示意" style="object-fit:cover">
+            <div class="fc-body">
+              <span class="fc-kicker">精简包</span>
+              <h3>38.7 MB 精简包适合存储紧张的旧机型</h3>
+              <p>去掉内置音效与多语言资源，保留全部功能入口。Redmi Note 8 实测安装后可用空间回升 21 MB。</p>
+              <div class="fc-meta"><span>2026-10-24</span><span>仅限 Android 10 以上</span></div>
+            </div>
+          </article>
+          <article class="feature-card">
+            <img src="https://picsum.photos/seed/51hlw-signature/640/360" width="640" height="360" loading="lazy" alt="安装包签名校验流程图" style="object-fit:cover">
+            <div class="fc-body">
+              <span class="fc-kicker">校验方法</span>
+              <h3>用 MT 管理器查看 APK 签名指纹的三步做法</h3>
+              <p>长按文件进入属性，查看 v2 签名摘要，再与发布记录里的 SHA-256 前八位对照，十分钟内可排除更换包。</p>
+              <div class="fc-meta"><span>2026-10-19</span><span>工具篇</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 最新更新 -->
+      <section class="block" id="updates" aria-labelledby="upTitle">
+        <div class="block-head">
+          <h2 id="upTitle">最新更新</h2>
+          <span class="note">每条对应一次可核对的发布或变更</span>
+        </div>
+        <div class="updates">
+          <div class="update-row"><time datetime="2026-11-06">11-06</time><span class="u-title"><b>3.8.2 标准包</b>重新打包，资源解压路径改为应用私有目录，修正 Android 15 上解压到 0 字节的问题</span><span class="u-tag">安装包</span></div>
+          <div class="update-row"><time datetime="2026-11-04">11-04</time><span class="u-title"><b>3.8.2 完整资源包</b>上线，148.2 MB，含全套音效与四套主题皮肤</span><span class="u-tag">安装包</span></div>
+          <div class="update-row"><time datetime="2026-11-03">11-03</time><span class="u-title"><b>3.7.9</b> 停止拉取增量包，旧客户端需整包升级到 3.8 系</span><span class="u-tag">规则</span></div>
+          <div class="update-row"><time datetime="2026-11-01">11-01</time><span class="u-title"><b>签名校验页</b>补录 3.8.0 至 3.8.2 三个版本的 SHA-256 前八位</span><span class="u-tag">资料</span></div>
+          <div class="update-row"><time datetime="2026-10-29">10-29</time><span class="u-title"><b>HarmonyOS NEXT</b> 兼容说明更新：需通过卓易通容器安装，原生 APK 不可直装</span><span class="u-tag">适配</span></div>
+          <div class="update-row"><time datetime="2026-10-26">10-26</time><span class="u-title"><b>渠道包对照表</b>新增 OPPO 软件商店渠道包，包体 64.1 MB，签名与标准包不同</span><span class="u-tag">资料</span></div>
+          <div class="update-row"><time datetime="2026-10-22">10-22</time><span class="u-title"><b>3.8.1</b> 修复 Android 14 上通知权限申请弹窗重复弹出的问题</span><span class="u-tag">安装包</span></div>
+          <div class="update-row"><time datetime="2026-10-12">10-12</time><span class="u-title"><b>下载入口</b>改为按包类型分区，精简包、标准包、完整资源包分列</span><span class="u-tag">站点</span></div>
+        </div>
+      </section>
+
+      <!-- 频道 / 分类入口 -->
+      <section class="block" id="channels" aria-labelledby="chTitle">
+        <div class="block-head">
+          <h2 id="chTitle">频道入口</h2>
+          <span class="note">按安装包类型与使用目的划分</span>
+        </div>
+        <div class="channels">
+          <a href="/#updates"><span class="cname">标准安装包</span><span class="cmeta">62.4 MB · 8 个版本</span></a>
+          <a href="/#featured"><span class="cname">精简安装包</span><span class="cmeta">38.7 MB · 4 个版本</span></a>
+          <a href="/#updates"><span class="cname">完整资源包</span><span class="cmeta">148.2 MB · 3 个版本</span></a>
+          <a href="/#deep"><span class="cname">历史版本归档</span><span class="cmeta">3.0—3.7 共 15 个</span></a>
+          <a href="/#deep"><span class="cname">渠道包对照</span><span class="cmeta">小米 / 华为 / OPPO</span></a>
+          <a href="/#guide"><span class="cname">签名校验</span><span class="cmeta">SHA-256 对照表</span></a>
+          <a href="/#guide"><span class="cname">安装排错</span><span class="cmeta">12 种报错码</span></a>
+          <a href="/#faq"><span class="cname">系统适配</span><span class="cmeta">Android 7—15</span></a>
+          <a href="/#faq"><span class="cname">HarmonyOS 说明</span><span class="cmeta">容器安装方式</span></a>
+          <a href="/#comments"><span class="cname">用户实测</span><span class="cmeta">37 条反馈</span></a>
+          <a href="/#news"><span class="cname">发布日志</span><span class="cmeta">按日期升序</span></a>
+          <a href="/#timeline"><span class="cname">版本时间线</span><span class="cmeta">2025-06 至今</span></a>
+        </div>
+      </section>
+
+      <!-- 深度解析（唯一主体阅读区） -->
+      <section class="block" id="deep" aria-labelledby="dpTitle">
+        <div class="deep">
+          <h2 id="dpTitle">深度解析：标准包与精简包该怎么选</h2>
+          <p class="lede">同一版本号的两个包，功能入口完全相同，差别集中在资源与适配范围。下面把三轮实测的差异拆开写，便于逐项核对。</p>
+
+          <h3>判断一：包体差距的体积去向</h3>
+          <p>3.8.2 标准包 62.4 MB，精简包 38.7 MB，差 23.7 MB。拆包统计的结果是：内置音效 9.8 MB、四套主题皮肤 7.1 MB、多语言资源 4.3 MB，剩余约 2.5 MB 为压缩率差异。也就是说，<b>省下的空间几乎全部来自素材，而不是功能代码</b>。功能入口、界面布局、账号体系在两个包里逐项对得上。</p>
+          <p>这个判断可以直接反驳一种常见说法——“精简包砍掉了部分功能”。用 Android Studio 的 APK Analyzer 对比 dex 文件，方法数与类名差异为零，说明功能代码没有被裁剪。</p>
+
+          <table class="deeptable">
+            <thead><tr><th>对比项</th><th>标准包 3.8.2</th><th>精简包 3.8.2</th></tr></thead>
+            <tbody>
+              <tr><td>包体大小</td><td class="num">62.4 MB</td><td class="num">38.7 MB</td></tr>
+              <tr><td>最低系统</td><td class="num">Android 8.0</td><td class="num">Android 10</td></tr>
+              <tr><td>内置音效</td><td>全套 14 段</td><td>无</td></tr>
+              <tr><td>主题皮肤</td><td>4 套</td><td>默认 1 套</td></tr>
+              <tr><td>方法数</td><td class="num">41,286</td><td class="num">41,286</td></tr>
+            </tbody>
+          </table>
+
+          <div class="verdict"><b>可引用的结论：</b>在 Android 10 以上的设备上，精简包在功能上与标准包等价；Android 8.0 至 9 的设备只能用标准包，因为精简包调用了新版解压接口。</div>
+
+          <h3>判断二：签名不一致引发的覆盖安装失败</h3>
+          <p>10 月 26 日上架的 OPPO 渠道包，包体 64.1 MB，比标准包大 1.7 MB，多出的部分是渠道计费与推送组件。两份包的签名摘要不同：标准包 SHA-256 前八位为 <b>7c41e0b2</b>，OPPO 渠道包为 <b>a93f5d18</b>。</p>
+          <p>已有 3.8.1 标准包的用户如果直接安装 OPPO 渠道包，系统会报错「INSTALL_FAILED_UPDATE_INCOMPATIBLE」。此时要么卸载重装，要么找到同签名的包。这条规则在任何渠道包里都成立，与 51hlw下载 站内是否提供下载无关。</p>
+
+          <h3>判断三：3.8.1 到 3.8.2 的真实改动范围</h3>
+          <p>发布说明写的是“修复已知问题”，实际 diff 显示改动集中在两处：一是资源解压后的目标路径由外部存储改为应用私有目录，二是通知权限申请的调用时机后移。前者对应 Android 15 的存储权限收紧，后者对应 3.8.1 上弹窗重复的问题。</p>
+          <p>用时间线看更清楚：10 月 20 日有用户报告 Android 15 上解压失败，10 月 22 日 3.8.1 修复通知弹窗，11 月 6 日 3.8.2 修复解压路径。三个日期之间，社区里的说法从“权限没给”逐步转为“路径写错”，最终结论落在路径上。这是推测被证据替换的过程，值得记录。</p>
+
+          <ul class="checklist">
+            <li>核对包体：3.8.2 标准包的 MD5 为 5b8e0c7a1f34d9a2，完整资源包不同</li>
+            <li>核对签名：标准包 SHA-256 前八位 7c41e0b2，渠道包一律不同</li>
+            <li>核对版本号：设置页底部写 3.8.2(20261106)，非此串说明不是最新包</li>
+            <li>核对权限：3.8.2 不再申请存储卡写入权限，若仍在申请，包已过期</li>
+          </ul>
+          <p class="factline">以上数据来自 2026-11-06 抓取的安装包元信息与三轮安装记录，可在签名校验页复核。</p>
+        </div>
+      </section>
+
+      <!-- 体验指南 -->
+      <section class="block" id="guide" aria-labelledby="gdTitle">
+        <div class="block-head">
+          <h2 id="gdTitle">体验指南：从选包到完成安装</h2>
+          <span class="note">五步走完，每步都有可观察的结果</span>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div>
+              <h3>看系统版本再选包</h3>
+              <p>设置 → 关于手机 → Android 版本。低于 10 的机型直接选标准包，高于 10 的机型两包都能用，按存储余量决定。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>下载后先看大小与摘要</h3>
+              <p>文件管理器中长按安装包查看属性，标准包应为 62.4 MB。大小偏差超过 1 MB 时，先删掉重下，不要直接装。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>允许未知来源安装</h3>
+              <p>Android 8 以上按应用分别授权：设置 → 应用 → 特殊权限 → 安装未知应用，找到文件管理器，打开允许开关。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>安装并核对版本串</h3>
+              <p>安装完成打开应用，进入设置页底部，确认版本串为 3.8.2(20261106)。显示 3.8.1 说明装的是旧包。</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>首次启动完成解压</h3>
+              <p>首次打开会自动解压资源，约 8—20 秒。被中断后重新进入会续解，不需重装。解压完成后主界面可正常进入。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="block" id="faq" aria-labelledby="fqTitle">
+        <div class="block-head">
+          <h2 id="fqTitle">常见问题</h2>
+          <span class="note">安装环节问得最多的八件事</span>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>安装包提示「解析软件包时出现问题」怎么办？</summary>
+            <div class="ans"><p>多数是下载不完整。先在文件管理器看包体大小，标准包应为 62.4 MB，精简包 38.7 MB。数字对不上就删掉重新下载；数字对得上但仍解析失败，检查最低系统版本——3.8.2 标准包要求 Android 8.0 以上，精简包要求 Android 10 以上。</p></div>
+          </details>
+          <details>
+            <summary>为什么提示签名不一致，无法覆盖安装？</summary>
+            <div class="ans"><p>新包的签名摘要与已安装版本不同。渠道包之间尤其常见：小米渠道包与 OPPO 渠道包签名不同。处理方式是卸载旧版本再安装，但卸载会清除本地数据，先确认数据可重建再操作。</p></div>
+          </details>
+          <details>
+            <summary>精简安装包少了哪些内容？</summary>
+            <div class="ans"><p>少了内置音效、多余的主题皮肤和多语言资源，功能入口与方法数与标准包一致。安装后默认使用单套皮肤，需要音效时可以从完整资源包里单独取用素材。</p></div>
+          </details>
+          <details>
+            <summary>HarmonyOS NEXT 手机能直接安装吗？</summary>
+            <div class="ans"><p>不能。HarmonyOS NEXT 不再支持 APK 格式，需通过卓易通等容器应用运行，容器内安装标准包即可。10 月 29 日的适配说明已写明这一点，安装前确认容器版本不低于 1.2.4。</p></div>
+          </details>
+          <details>
+            <summary>旧版本 3.7.9 还能继续用吗？</summary>
+            <div class="ans"><p>可以打开，但 11 月 3 日起不再拉取增量包，新内容需整包升级。停留在 3.7.9 的设备上，部分资源加载会失败并提示更新，此时只能下载 3.8 系整包。</p></div>
+          </details>
+          <details>
+            <summary>首次启动解压卡在 0% 是什么原因？</summary>
+            <div class="ans"><p>3.8.1 及更早版本在 Android 15 上会触发这个问题，原因是解压目标写在外部存储。升级到 3.8.2 后路径改为应用私有目录，问题消失。若已装 3.8.2 仍卡住，检查应用私有目录剩余空间是否大于 200 MB。</p></div>
+          </details>
+          <details>
+            <summary>安装包在手机上占多少空间？</summary>
+            <div class="ans"><p>安装后占用约等于包体大小的两倍：标准包安装后约 128 MB，完整资源包约 310 MB。原因是安装过程保留原始包与解压副本，安装完成后可手动删除下载目录里的原始文件。</p></div>
+          </details>
+          <details>
+            <summary>怎么确认下载的包没有被换过？</summary>
+            <div class="ans"><p>用 MT 管理器或 apksigner 查看 APK 签名指纹，与签名校验页记录的 SHA-256 前八位比对。3.8.2 标准包为 7c41e0b2。前八位一致基本可以排除被替换，完整摘要在校验页可查。</p></div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 用户评论 -->
+      <section class="block" id="comments" aria-labelledby="cmTitle">
+        <div class="block-head">
+          <h2 id="cmTitle">用户评论</h2>
+          <span class="note">来自安装实测反馈，保留不同意见</span>
+        </div>
+        <div class="comments">
+          <div class="comment">
+            <div class="c-head"><span class="avatar" style="background:#1f7a6d">阿</span><span class="c-name">阿泽</span><span class="c-time">今天 09:12</span></div>
+            <p class="c-body">3.8.2 在 Pixel 6 上装完首启只用了 11 秒，比 3.8.1 快不少，解压到私有目录这步确实有效。</p>
+            <span class="c-ref">指向 3.8.2 标准包</span>
+          </div>
+          <div class="comment">
+            <div class="c-head"><span class="avatar" style="background:#a14532">老</span><span class="c-name">老周的Redmi</span><span class="c-time">昨天 20:40</span></div>
+            <p class="c-body">精简包装在 Note 8 上没毛病，但音效全没了，打关卡的时候太安静，后来又卸了装回标准包。这个取舍还是看人。</p>
+            <span class="c-ref">指向 38.7 MB 精简包</span>
+          </div>
+          <div class="comment">
+            <div class="c-head"><span class="avatar" style="background:#42545e">五</span><span class="c-name">五月不吃鱼</span><span class="c-time">昨天 16:03</span></div>
+            <p class="c-body">OPPO 渠道包签名和标准包不一样，我直接覆盖装失败了一次，报错码 INSTALL_FAILED_UPDATE_INCOMPATIBLE，卸载后才好。</p>
+            <span class="c-ref">指向 OPPO 渠道包</span>
+          </div>
+          <div class="comment">
+            <div class="c-head"><span class="avatar" style="background:#8a6b1f">K</span><span class="c-name">Kevin_W</span><span class="c-time">11-06 22:15</span></div>
+            <p class="c-body">完整资源包 148 MB 有点狠，四套皮肤其实只用得上一套，能不能单独出个皮肤包？</p>
+            <span class="c-ref">指向完整资源包</span>
+          </div>
+          <div class="comment">
+            <div class="c-head"><span class="avatar" style="background:#1f7a6d">陈</span><span class="c-name">陈默</span><span class="c-time">11-05 11:27</span></div>
+            <p class="c-body">HarmonyOS NEXT 上折腾半天直装不了，看到 10-29 那条说明才明白要用容器，这个提示位置可以再显眼些。</p>
+            <span class="c-ref">指向 HarmonyOS 适配说明</span>
+          </div>
+          <div class="comment">
+            <div class="c-head"><span class="avatar" style="background:#42545e">小</span><span class="c-name">小满同学</span><span class="c-time">11-04 18:52</span></div>
+            <p class="c-body">说实话这几个板块排版还行，信息也够。就是版本号太多，第一次进来有点不知道点哪个，得看半天才明白标准包是主推。</p>
+          </div>
+          <div class="comment">
+            <div class="c-head"><span class="avatar" style="background:#a14532">吴</span><span class="c-name">吴工</span><span class="c-time">11-03 08:06</span></div>
+            <p class="c-body">3.7.9 停止增量包以后，我爸那台安卓 8 的老机器只能下整包，62 MB 流量也不小，希望旧版能多撑一阵。</p>
+            <span class="c-ref">指向 3.7.9 停止增量包</span>
+          </div>
+          <div class="comment">
+            <div class="c-head"><span class="avatar" style="background:#8a6b1f">L</span><span class="c-name">Lemon</span><span class="c-time">11-01 14:39</span></div>
+            <p class="c-body">按签名校验页查了 SHA-256 前八位，确认是原包，这个页面挺实用，比以前光看 MD5 靠谱。</p>
+            <span class="c-ref">指向签名校验页</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 相关资讯 -->
+      <section class="block" id="news" aria-labelledby="nwTitle">
+        <div class="block-head">
+          <h2 id="nwTitle">相关资讯</h2>
+          <span class="note">10 月中旬以来的版本与规则变动</span>
+        </div>
+        <div class="news">
+          <article class="news-item">
+            <time datetime="2026-11-06">2026-11-06</time>
+            <h3>3.8.2 标准包重新打包，解压路径迁入私有目录</h3>
+            <p>目标路径改为 files 目录下 resources 子目录，Android 15 存储权限收紧后不再触发外部写入失败。</p>
+          </article>
+          <article class="news-item">
+            <time datetime="2026-11-03">2026-11-03</time>
+            <h3>3.7.9 停止拉取增量包，旧客户端需整包升级</h3>
+            <p>影响所有停留在 3.7 系的设备，升级必须下载完整安装包，增量补丁不再下发。</p>
+          </article>
+          <article class="news-item">
+            <time datetime="2026-10-29">2026-10-29</time>
+            <h3>HarmonyOS NEXT 适配说明补充：需容器运行</h3>
+            <p>明示 APK 不可直装，容器版本要求 1.2.4 以上，低版本容器可能出现资源加载不全。</p>
+          </article>
+          <article class="news-item">
+            <time datetime="2026-10-26">2026-10-26</time>
+            <h3>OPPO 软件商店渠道包上架，签名与标准包不同</h3>
+            <p>包体 64.1 MB，增加渠道计费与推送组件，签名摘要 a93f5d18，不支持覆盖标准包。</p>
+          </article>
+          <article class="news-item">
+            <time datetime="2026-10-22">2026-10-22</time>
+            <h3>3.8.1 修复 Android 14 通知权限弹窗重复问题</h3>
+            <p>权限申请调用时机后移，从启动首帧改为首屏渲染完成后，重复弹窗不再出现。</p>
+          </article>
+          <article class="news-item">
+            <time datetime="2026-10-12">2026-10-12</time>
+            <h3>下载入口按包类型分区，三类包分列展示</h3>
+            <p>精简包、标准包、完整资源包各占一栏，页面不再混排，选包时先看类型再看版本。</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 相关推荐 -->
+      <section class="block" id="related" aria-labelledby="rlTitle">
+        <div class="block-head">
+          <h2 id="rlTitle">相关推荐</h2>
+          <span class="note">按关键词检索频次排列</span>
+        </div>
+        <div class="tags">
+          <a href="/#updates">3.8.2 标准包安装</a>
+          <a href="/#featured">精简安装包下载</a>
+          <a href="/#guide">APK 签名校验方法</a>
+          <a href="/#deep">渠道包签名不一致</a>
+          <a href="/#faq">Android 15 解压失败</a>
+          <a href="/#guide">未知来源安装授权</a>
+          <a href="/#deep">历史版本回退</a>
+          <a href="/#faq">HarmonyOS 容器安装</a>
+          <a href="/#timeline">3.7 系停止增量更新</a>
+          <a href="/#updates">完整资源包体积</a>
+          <a href="/#faq">安装后占用空间</a>
+          <a href="/#comments">Redmi Note 8 实测</a>
+        </div>
+      </section>
+
+      <!-- 版本时间线 -->
+      <section class="block" id="timeline" aria-labelledby="tlTitle">
+        <div class="block-head">
+          <h2 id="tlTitle">版本时间线</h2>
+          <span class="note">2025 年 6 月至今的关键节点</span>
+        </div>
+        <div class="card" style="padding:18px 20px 6px">
+          <ol class="timeline">
+            <li><b>3.8.2 发布</b><time>2026-11-06</time>资源解压路径迁入私有目录，适配 Android 15。</li>
+            <li><b>3.8.1 发布</b><time>2026-10-22</time>通知权限弹窗重复问题修复。</li>
+            <li><b>3.8.0 发布</b><time>2026-09-18</time>界面重构，引入主题皮肤机制，包体增至 61 MB。</li>
+            <li><b>3.7.9 发布</b><time>2026-07-30</time>最后一个支持 Android 7.0 的版本。</li>
+            <li><b>3.6.2 发布</b><time>2026-03-14</time>加入资源分片加载，首启时间缩短到 15 秒以内。</li>
+            <li><b>3.0 发布</b><time>2025-06-09</time>包体 44.6 MB，此后每次大版本增加 3—8 MB。</li>
+          </ol>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 侧栏 -->
+    <aside class="side-col" aria-label="侧栏">
+      <div class="side-box">
+        <h2>栏目导航</h2>
+        <nav class="side-nav" id="sideNav">
+          <a href="/#overview">领域概览</a>
+          <a href="/#featured">精选内容</a>
+          <a href="/#updates">最新更新</a>
+          <a href="/#channels">频道入口</a>
+          <a href="/#deep">深度解析</a>
+          <a href="/#guide">体验指南</a>
+          <a href="/#faq">常见问题</a>
+          <a href="/#comments">用户评论</a>
+          <a href="/#news">相关资讯</a>
+          <a href="/#related">相关推荐</a>
+          <a href="/#timeline">版本时间线</a>
+        </nav>
+      </div>
+      <div class="side-box">
+        <h2>下载量排行</h2>
+        <ol class="side-list">
+          <li><span class="rn">1</span>3.8.2 标准包</li>
+          <li><span class="rn">2</span>3.8.0 标准包</li>
+          <li><span class="rn">3</span>3.8.2 精简包</li>
+          <li><span class="rn">4</span>3.8.1 标准包</li>
+          <li><span class="rn">5</span>3.8.2 完整资源包</li>
+        </ol>
+      </div>
+      <div class="side-box">
+        <h2>包体档案</h2>
+        <div class="side-profile">
+          <div class="row"><span class="k">当前稳定版</span><span>3.8.2</span></div>
+          <div class="row"><span class="k">标准包体</span><span>62.4 MB</span></div>
+          <div class="row"><span class="k">精简包体</span><span>38.7 MB</span></div>
+          <div class="row"><span class="k">完整资源包</span><span>148.2 MB</span></div>
+          <div class="row"><span class="k">最低系统</span><span>Android 8.0</span></div>
+          <div class="row"><span class="k">签名摘要</span><span>7c41e0b2</span></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- 页尾 -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="brand">
+          <svg width="30" height="30" viewBox="0 0 64 64" role="img" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#f2b134"/>
+            <path d="M18 44V21h7l7 12 7-12h7v23h-6V32l-5 8h-6l-5-8v12z" fill="#133b52"/>
+          </svg>
+          <span class="brand-name">51hlw下载</span>
+        </div>
+        <p class="f-tag">按版本号与签名整理安装包，给出可核对的包体大小和适配范围，选包前先看差异。</p>
+        <p class="f-note">示例数据说明：站内版本记录、签名摘要、实测耗时均为演示用示例条目，日期截至 2026-11-08。</p>
+      </div>
+      <div>
+        <h3>安装包频道</h3>
+        <ul>
+          <li><a href="/#updates">标准安装包</a></li>
+          <li><a href="/#featured">精简安装包</a></li>
+          <li><a href="/#updates">完整资源包</a></li>
+          <li><a href="/#deep">历史版本归档</a></li>
+          <li><a href="/#deep">渠道包对照</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>使用帮助</h3>
+        <ul>
+          <li><a href="/#guide">安装步骤</a></li>
+          <li><a href="/#guide">签名校验</a></li>
+          <li><a href="/#guide">安装排错</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#faq">系统适配</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>内容栏目</h3>
+        <ul>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#related">相关推荐</a></li>
+          <li><a href="/#timeline">版本时间线</a></li>
+          <li><a href="/#overview">领域概览</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 51hlw下载 · 安装包资料整理</span>
+      <span>正文更新时间 2026-11-08 · 对应 3.8.2 发布记录</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="回到顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+</button>
+
+<script>
+(function(){
+  "use strict";
+
+  /* 公告条关闭 */
+  var ann = document.getElementById('announce');
+  var annClose = document.getElementById('annClose');
+  if (annClose) {
+    annClose.addEventListener('click', function(){
+      ann.style.display = 'none';
+      document.documentElement.style.setProperty('--ann-h', '0px');
+    });
+  }
+
+  /* 移动端菜单 */
+  var menuBtn = document.getElementById('menuBtn');
+  var siteNav = document.getElementById('siteNav');
+  function closeMenu(){
+    if (!siteNav || !menuBtn) return;
+    siteNav.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+  if (menuBtn && siteNav) {
+    menuBtn.addEventListener('click', function(){
+      var open = siteNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    siteNav.addEventListener('click', function(e){
+      if (e.target.tagName === 'A') closeMenu();
+    });
+    document.addEventListener('click', function(e){
+      if (siteNav.classList.contains('open') &&
+          !siteNav.contains(e.target) && !menuBtn.contains(e.target)) {
+        closeMenu();
+      }
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') closeMenu();
+    });
+  }
+
+  /* 本地搜索 */
+  var input = document.getElementById('siteSearch');
+  var feedback = document.getElementById('searchFeedback');
+  var index = [
+    {t:'3.8.2 标准包', id:'updates', k:'3.8.2 标准包 62.4 MB 十一月'},
+    {t:'3.8.2 精简包', id:'featured', k:'精简包 38.7 MB 体积'},
+    {t:'完整资源包 148.2 MB', id:'updates', k:'完整资源 音效 皮肤'},
+    {t:'签名校验方法', id:'guide', k:'签名 SHA-256 校验 指纹'},
+    {t:'渠道包签名不一致', id:'deep', k:'OPPO 小米 华为 渠道 覆盖安装'},
+    {t:'Android 15 解压失败', id:'faq', k:'Android 15 解压 私有目录'},
+    {t:'HarmonyOS 容器安装', id:'faq', k:'鸿蒙 NEXT 卓易通 容器'},
+    {t:'3.7.9 停止增量更新', id:'news', k:'停止增量包 整包升级'},
+    {t:'版本时间线', id:'timeline', k:'时间线 3.8 3.7 历史'},
+    {t:'用户实测反馈', id:'comments', k:'评论 实测 Pixel Redmi'},
+    {t:'历史版本回退', id:'deep', k:'回退 旧版 归档'},
+    {t:'安装后占用空间', id:'faq', k:'空间 占用 两倍'}
+  ];
+  if (input && feedback) {
+    var hideTimer;
+    input.addEventListener('input', function(){
+      var q = input.value.trim().toLowerCase();
+      feedback.innerHTML = '';
+      if (!q) { feedback.classList.remove('show'); return; }
+      var hits = index.filter(function(item){
+        return item.t.toLowerCase().indexOf(q) > -1 || item.k.toLowerCase().indexOf(q) > -1;
+      }).slice(0, 5);
+      if (hits.length === 0) {
+        feedback.innerHTML = '<div class="none">没有匹配「' + q.replace(/[<>&]/g,'') + '」的条目，试试“签名”“精简包”或“3.8.2”。</div>';
+      } else {
+        hits.forEach(function(item){
+          var a = document.createElement('a');
+          a.className = 'hit';
+          a.href = '/#' + item.id;
+          a.textContent = item.t;
+          a.addEventListener('click', function(){
+            feedback.classList.remove('show');
+            input.value = '';
+            closeMenu();
+          });
+          feedback.appendChild(a);
+        });
+      }
+      feedback.classList.add('show');
+    });
+    input.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') { feedback.classList.remove('show'); input.blur(); }
+    });
+    document.addEventListener('click', function(e){
+      if (!feedback.contains(e.target) && e.target !== input) {
+        feedback.classList.remove('show');
+      }
+    });
+  }
+
+  /* 回到顶部 */
+  var toTop = document.getElementById('toTop');
+  function onScroll(){
+    if (!toTop) return;
+    if (window.scrollY > 560) toTop.classList.add('show');
+    else toTop.classList.remove('show');
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  if (toTop) {
+    toTop.addEventListener('click', function(){
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  }
+
+  /* 侧栏滚动高亮 */
+  var sideNav = document.getElementById('sideNav');
+  if (sideNav) {
+    var links = Array.prototype.slice.call(sideNav.querySelectorAll('a'));
+    var sections = links.map(function(a){
+      var id = a.getAttribute('href').replace('/#','');
+      return document.getElementById(id);
+    }).filter(Boolean);
+    if ('IntersectionObserver' in window && sections.length) {
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (!entry.isIntersecting) return;
+          var id = entry.target.id;
+          links.forEach(function(a){
+            a.classList.toggle('active', a.getAttribute('href') === '/#' + id);
+          });
+        });
+      }, {rootMargin:'-140px 0px -55% 0px', threshold:0});
+      sections.forEach(function(s){ observer.observe(s); });
+    }
+  }
+
+  /* 平滑滚动偏移（兼容不支持 scroll-padding 的环境） */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a[href^="/#"]') : null;
+    if (!a) return;
+    var hash = a.getAttribute('href').slice(1);
+    var target = document.getElementById(hash.replace('#',''));
+    if (!target) return;
+    e.preventDefault();
+    closeMenu();
+    var headH = document.querySelector('.header');
+    var annH = document.getElementById('announce');
+    var offset = (headH ? headH.offsetHeight : 62) + (annH && annH.style.display !== 'none' ? annH.offsetHeight : 0) + 12;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({top: Math.max(top,0), behavior:'smooth'});
+    if (history.replaceState) history.replaceState(null,'','#' + hash.replace('#',''));
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "51hlw下载",
+  "description": "按版本号、包体大小和签名类型整理安卓资源安装包，提供安装步骤与排错问答。",
+  "inLanguage": "zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "安装包提示「解析软件包时出现问题」怎么办？",
+      "acceptedAnswer": {"@type": "Answer", "text": "多数是下载不完整。先在文件管理器看包体大小，标准包应为 62.4 MB，精简包 38.7 MB。数字对不上就删掉重新下载；数字对得上但仍解析失败，检查最低系统版本。"}
+    },
+    {
+      "@type": "Question",
+      "name": "为什么提示签名不一致，无法覆盖安装？",
+      "acceptedAnswer": {"@type": "Answer", "text": "新包的签名摘要与已安装版本不同。渠道包之间尤其常见。处理方式是卸载旧版本再安装，但卸载会清除本地数据，先确认数据可重建再操作。"}
+    },
+    {
+      "@type": "Question",
+      "name": "精简安装包少了哪些内容？",
+      "acceptedAnswer": {"@type": "Answer", "text": "少了内置音效、多余的主题皮肤和多语言资源，功能入口与方法数与标准包一致。安装后默认使用单套皮肤。"}
+    },
+    {
+      "@type": "Question",
+      "name": "HarmonyOS NEXT 手机能直接安装吗？",
+      "acceptedAnswer": {"@type": "Answer", "text": "不能。HarmonyOS NEXT 不再支持 APK 格式，需通过卓易通等容器应用运行，容器版本不低于 1.2.4。"}
+    },
+    {
+      "@type": "Question",
+      "name": "旧版本 3.7.9 还能继续用吗？",
+      "acceptedAnswer": {"@type": "Answer", "text": "可以打开，但 11 月 3 日起不再拉取增量包，新内容需整包升级。部分资源加载会失败并提示更新。"}
+    },
+    {
+      "@type": "Question",
+      "name": "首次启动解压卡在 0% 是什么原因？",
+      "acceptedAnswer": {"@type": "Answer", "text": "3.8.1 及更早版本在 Android 15 上会触发，原因是解压目标写在外部存储。升级到 3.8.2 后路径改为应用私有目录，问题消失。"}
+    },
+    {
+      "@type": "Question",
+      "name": "安装包在手机上占多少空间？",
+      "acceptedAnswer": {"@type": "Answer", "text": "安装后占用约等于包体大小的两倍：标准包约 128 MB，完整资源包约 310 MB。安装完成后可手动删除下载目录里的原始文件。"}
+    },
+    {
+      "@type": "Question",
+      "name": "怎么确认下载的包没有被换过？",
+      "acceptedAnswer": {"@type": "Answer", "text": "用 MT 管理器或 apksigner 查看 APK 签名指纹，与签名校验页记录的 SHA-256 前八位比对。3.8.2 标准包为 7c41e0b2。"}
+    }
+  ]
+}
+</script>
+</body>
+              </html>
